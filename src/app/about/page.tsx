@@ -62,7 +62,7 @@ export default function AboutPage() {
           そんな想いで、日々活動しています。
         </p>
         <Image
-  src="/images/HHEActivity.jpg"
+  src="/images/HHEActivity.JPG"
   alt="Happy Hearts English 団体写真"
   width={600}
   height={300}

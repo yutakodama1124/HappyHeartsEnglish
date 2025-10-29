@@ -21,13 +21,13 @@ export default function ActivitiesPage() {
       title: "イベント開催",
       desc: "児童館や区の施設で英語を使ったアクティビティを開催。ドッジボールなどに英語を加えたアクティビティや日本でも人気のカードゲームに英語を混ぜ込むなど日常生活の「楽しい」と英語を掛け合わせています！。",
       voice: "『普段あまり笑わないこどもが私たちのアクティビティを楽しいと言ってくれたことにすごいやりがいを感じた。』 - メンバーB",
-      image: "/images/HHEActivityCover.jpg",
+      image: "/images/HHEActivityCover.JPG",
     },
     {
       title: "他団体との連携",
       desc: "英語をテーマにした他のボランティア団体や教育機関と協力し、地域全体で学びの輪を広げています。",
       voice: "『他団体との交流からも多くを学び、自分たちの活動の成長にも繋がった。』 - メンバーC",
-      image: "/images/HHEActivity.jpg",
+      image: "/images/HHEActivity.JPG",
     },
   ];
 

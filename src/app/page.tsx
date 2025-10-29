@@ -40,12 +40,12 @@ export default function Home() {
   {
     title: "イベント開催",
     desc: "児童館や区の施設と連携し、英語での様々なアクティビティやイベントを開催してます！",
-    image: "/images/HHEActivityCover.jpg",
+    image: "/images/HHEActivityCover.JPG",
   },
   {
     title: "他団体との連携",
     desc: "英語をメインとしてる他のボランティア団体とも協力し、より多くの子供たちに英語の楽しさを届けてます！",
-    image: "/images/HHEActivity.jpg",
+    image: "/images/HHEActivity.JPG",
   },
 ];
 
@@ -260,14 +260,14 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl mx-auto">
   {[
-    "/images/gallery1.jpg",
-    "/images/gallery2.jpg",
-    "/images/gallery3.jpg",
-    "/images/gallery4.jpg",
-    "/images/gallery5.jpg",
-    "/images/gallery6.jpg",
-    "/images/gallery7.jpg",
-    "/images/HHECHARACTER.jpg",
+    "/images/gallery1.JPG",
+    "/images/gallery2.JPG",
+    "/images/gallery3.JPG",
+    "/images/gallery4.JPG",
+    "/images/gallery5.JPG",
+    "/images/gallery6.JPG",
+    "/images/gallery7.JPG",
+    "/images/HHECHARACTER.JPG",
   ].map((src, i) => (
     <div key={i} className="overflow-hidden rounded-3xl shadow-md">
       <Image
