@@ -267,7 +267,7 @@ export default function Home() {
     "/images/gallery5.JPG",
     "/images/gallery6.JPG",
     "/images/gallery7.JPG",
-    "/images/HHECHARACTER.JPG",
+    "/images/HHECHARACTER.jpg",
   ].map((src, i) => (
     <div key={i} className="overflow-hidden rounded-3xl shadow-md">
       <Image
