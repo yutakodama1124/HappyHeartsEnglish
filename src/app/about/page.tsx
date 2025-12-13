@@ -126,6 +126,12 @@ export default function AboutPage() {
               image: "/images/Wataru.jpg",
               message: "みんなで作る温かいコミュニティを目指しています。"
             },
+            { 
+              name: "Yuta Kodama", 
+              role: "共同代表", 
+              image: "/images/Yuta.png",
+              message: "英語を通して、子どもたちが自信を持てるきっかけを作りたいです。"
+            },
           ].map((leader, i) => (
             <motion.div
               key={i}
