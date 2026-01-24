@@ -1,53 +1,71 @@
 "use client";
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
+import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
+import { Calendar, ArrowRight } from "lucide-react";
 
 export default function NewsDetailPage() {
-  const { id } = useParams();
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-red-50 to-blue-50 text-pink-700">
-        {/* 🏠 Back to Home Navigation */}
-      <div className="flex justify-start p-6">
-        <Link
-          href="/"
-          className="text-pink-600 hover:text-red-500 font-semibold rounded-full px-4 py-2 transition-transform transform hover:scale-110"
-        >
-          ← ホームへ戻る
+    <div className="bg-[#fffcfd]">
+      <Section accentText="Journal / 01" className="pt-40">
+        <Link href="/">
+          <Button variant="ghost" size="sm" className="mb-12 pl-0 hover:pl-2 transition-all text-[#4a3b43]/40">
+            ← Back to Journey
+          </Button>
         </Link>
-      </div>
-     
-      <motion.section
-        className="max-w-4xl mx-auto py-20 px-6"
-        variants={fadeIn}
-        initial="hidden"
-        animate="visible"
-      >
-        <h1 className="text-4xl font-extrabold text-pink-600 mb-6">
-          Websiteを公開しました！ {id}
-        </h1>
-        <p className="text-sm text-pink-400 mb-6">2025年11月01日</p>
-       <Image
-    src="/images/HHEWEBSITE.png"
-    alt="Happy Hearts English チーム写真"
-    width={600}
-    height={600}
-    className="rounded-3xl shadow-lg object-cover w-full h-auto"
-  />
-        <p className="text-lg leading-relaxed mb-6 mt-4">
-          この度Happy Hearts Englishの公式ウェブサイトを公開しました。私たちの活動内容や最新ニュース、イベント情報などをより多くの方に知っていただくためのプラットフォームです。作成してくれたのは、私たちの団体メンバーである広尾学園小石川高校の学生です。彼らの情熱と努力により、魅力的で使いやすいサイトが完成しました。
-        </p>
-        <p className="text-lg leading-relaxed">
-          今後はこのwebsiteを通じて、私たちの活動報告やイベント案内、ボランティア募集情報などを定期的に発信していく予定です。ぜひブックマークして、最新情報をチェックしてください。これからもHappy Hearts Englishをよろしくお願いいたします！
-        </p>
-      </motion.section>
+
+        <article className="max-w-4xl mx-auto">
+          <div className="relative aspect-video w-full rounded-[3rem] overflow-hidden shadow-2xl mb-16 border-[12px] border-white bg-white">
+            <Image
+              src="/images/HHEWEBSITE.png"
+              alt="Website Launch"
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          <div className="relative">
+            <div className="flex items-center gap-4 mb-8">
+              <Calendar size={18} className="text-[#fb6f92]" />
+              <span className="text-sm font-black text-[#fb6f92] tracking-widest">2025.11.01</span>
+              <div className="h-px w-12 bg-[#fb6f92]/20" />
+              <span className="text-[10px] font-black uppercase text-[#4a3b43]/30 tracking-[0.2em]">Release</span>
+            </div>
+
+            <h1 className="text-4xl md:text-6xl font-black text-[#4a3b43] mb-12 leading-tight tracking-tighter">
+              Websiteを<br />公開しました！
+            </h1>
+
+            <div className="prose prose-pink prose-lg max-w-none text-[#4a3b43]/70 font-medium leading-loose">
+              <p className="mb-10 text-xl text-[#4a3b43]">
+                この度、Happy Hearts Englishの公式ウェブサイトを公開しました。
+              </p>
+              <div className="bg-[#fff0f5] p-10 rounded-[3rem] my-12 border border-[#fb6f92]/5 relative">
+                <p className="text-sm font-black text-[#fb6f92] mb-4 uppercase tracking-[0.3em] opacity-40">Student Project</p>
+                <p className="text-lg">
+                  作成してくれたのは、私たちの団体メンバーである広尾学園小石川高校の学生です。
+                  彼らの情熱と努力により、私たちの想いが詰まったサイトが完成しました。
+                </p>
+              </div>
+              <p>
+                今後はこのサイトを通じて、活動報告やイベント案内、ボランティア募集情報などを定期的に発信していきます。
+                ぜひブックマークして、私たちの歩みをチェックしてください。
+              </p>
+            </div>
+
+            <div className="mt-24 pt-16 border-t border-[#4a3b43]/5 flex justify-center">
+              <Link href="/contact">
+                <Button variant="primary" size="lg" className="px-12">
+                  お問い合わせ <ArrowRight className="ml-3" size={20} />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </article>
+      </Section>
     </div>
   );
 }

@@ -1,7 +1,9 @@
 "use client";
+
 import { useState } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
+import { Mail, Send, MapPin } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -10,11 +12,6 @@ export default function ContactPage() {
     message: ""
   });
   const [status, setStatus] = useState("");
-
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -30,9 +27,7 @@ export default function ContactPage() {
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -50,95 +45,95 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-red-50 to-blue-50 text-pink-700">
-      <div className="flex justify-start p-6">
-        <Link
-          href="/"
-          className="text-pink-600 hover:text-red-500 font-semibold rounded-full px-4 py-2 transition-transform transform hover:scale-110"
-        >
-          ← ホームへ戻る
-        </Link>
-      </div>
-      
-      <motion.section
-        className="max-w-3xl mx-auto py-20 px-6"
-        variants={fadeIn}
-        initial="hidden"
-        animate="visible"
-      >
-        <h1 className="text-4xl md:text-5xl font-extrabold text-center mb-10 text-pink-600">
-          お問い合わせ
-        </h1>
-        <p className="text-lg text-center mb-10">
-          ご質問や活動提携のご相談など、お気軽にご連絡ください。
-        </p>
-
-        <form onSubmit={handleSubmit} className="bg-white border border-pink-200 rounded-3xl p-8 shadow-md space-y-6">
-          <div>
-            <label className="block font-semibold mb-2">お名前</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full border border-pink-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-pink-400"
-              placeholder="例：山田 花子"
-            />
-          </div>
-          <div>
-            <label className="block font-semibold mb-2">メールアドレス</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full border border-pink-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-pink-400"
-              placeholder="example@email.com"
-            />
-          </div>
-          <div>
-            <label className="block font-semibold mb-2">メッセージ</label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={5}
-              className="w-full border border-pink-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-pink-400"
-              placeholder="お問い合わせ内容をご記入ください"
-            ></textarea>
-          </div>
-
-          {status === "success" && (
-            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
-              メッセージが送信されました！
-            </div>
-          )}
-          
-          {status === "error" && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
-              送信に失敗しました。もう一度お試しください。
-            </div>
-          )}
-
-          <motion.button
-            type="submit"
-            disabled={status === "sending"}
-            className="w-full bg-gradient-to-r from-pink-400 via-red-400 to-pink-500 text-white font-bold py-3 rounded-full hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
-            whileHover={{ scale: status === "sending" ? 1 : 1.05 }}
-            whileTap={{ scale: status === "sending" ? 1 : 0.95 }}
-          >
-            {status === "sending" ? "送信中..." : "送信する"}
-          </motion.button>
-        </form>
-
-        <div className="text-center mt-10">
-          <p className="text-pink-600 font-semibold">englishhappyhearts@gmail.com</p>
-          <p className="text-pink-600">文京区, 東京</p>
+    <div className="bg-[#fffcfd]">
+      <Section accentText="Contact / 01" className="pt-40">
+        <div className="max-w-4xl mx-auto text-center mb-20">
+          <h1 className="text-5xl md:text-8xl font-black text-[#4a3b43] mb-8 tracking-tighter">
+            Get in<br />
+            <span className="text-[#fb6f92]">Touch.</span>
+          </h1>
+          <p className="text-lg text-[#4a3b43]/60 font-medium">
+            ご質問や活動提携のご相談など、お気軽にご連絡ください。<br />
+            私たちの物語に、あなたの声を。
+          </p>
         </div>
-      </motion.section>
+
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-white p-10 md:p-14 rounded-[3.5rem] shadow-2xl border border-[#fb6f92]/10">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div>
+                <label className="block font-black text-[#4a3b43] mb-3 text-xs uppercase tracking-widest pl-1">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-[#fff0f5]/30 border-2 border-transparent focus:border-[#fb6f92] rounded-[1.5rem] p-5 focus:outline-none transition-all font-medium placeholder:text-[#4a3b43]/20"
+                  placeholder="山田 花子"
+                />
+              </div>
+              <div>
+                <label className="block font-black text-[#4a3b43] mb-3 text-xs uppercase tracking-widest pl-1">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-[#fff0f5]/30 border-2 border-transparent focus:border-[#fb6f92] rounded-[1.5rem] p-5 focus:outline-none transition-all font-medium placeholder:text-[#4a3b43]/20"
+                  placeholder="example@email.com"
+                />
+              </div>
+              <div>
+                <label className="block font-black text-[#4a3b43] mb-3 text-xs uppercase tracking-widest pl-1">Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={6}
+                  className="w-full bg-[#fff0f5]/30 border-2 border-transparent focus:border-[#fb6f92] rounded-[1.5rem] p-5 focus:outline-none transition-all font-medium placeholder:text-[#4a3b43]/20 resize-none"
+                  placeholder="お問い合わせ内容をご記入ください..."
+                ></textarea>
+              </div>
+
+              {status === "success" && (
+                <div className="bg-[#fb6f92]/5 text-[#fb6f92] p-5 rounded-2xl font-black text-center text-sm">
+                  ✨ メッセージが送信されました！
+                </div>
+              )}
+
+              {status === "error" && (
+                <div className="bg-red-50 text-red-500 p-5 rounded-2xl font-black text-center text-sm">
+                  😢 送信に失敗しました。
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                className="w-full py-6 text-xl shadow-2xl bg-[#fb6f92]"
+                isLoading={status === "sending"}
+              >
+                Send Message <Send className="ml-3" size={20} />
+              </Button>
+            </form>
+          </div>
+        </div>
+
+        <div className="mt-24 grid md:grid-cols-2 gap-10 max-w-2xl mx-auto">
+          <div className="flex flex-col items-center gap-4 bg-white p-8 rounded-3xl border border-[#fb6f92]/5">
+            <Mail size={24} className="text-[#fb6f92]" />
+            <p className="font-black text-[#4a3b43] text-sm">englishhappyhearts@gmail.com</p>
+          </div>
+          <div className="flex flex-col items-center gap-4 bg-white p-8 rounded-3xl border border-[#fb6f92]/5">
+            <MapPin size={24} className="text-[#fb6f92]" />
+            <p className="font-black text-[#4a3b43] text-sm">東京都 文京区</p>
+          </div>
+        </div>
+      </Section>
     </div>
   );
 }

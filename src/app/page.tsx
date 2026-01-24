@@ -1,386 +1,270 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import { useRef } from "react";
+import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
+import { CloudImage } from "@/components/ui/CloudImage";
+import { ArrowRight, Star, Heart, Smile } from "lucide-react";
 
 export default function Home() {
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const heroImageY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
   };
 
-  useEffect(() => {
-    const handleSmoothScroll = (e: Event) => {
-      e.preventDefault();
-      const targetId = (e.currentTarget as HTMLAnchorElement).getAttribute("href");
-      const target = document.querySelector(targetId!);
-      if (target) target.scrollIntoView({ behavior: "smooth" });
-    };
-
-    const anchors = document.querySelectorAll('a[href^="#"]');
-    anchors.forEach((anchor) => {
-      anchor.addEventListener("click", handleSmoothScroll);
-    });
-
-    return () => {
-      anchors.forEach((anchor) => {
-        anchor.removeEventListener("click", handleSmoothScroll);
-      });
-    };
-  }, []);
-
-  const activities = [
-  {
-    title: "絵本制作",
-    desc: "脚本からイラストまで、ボランティアが手作りで英語絵本を制作し公開しております！",
-    image: "/images/HHECOVER.png",
-  },
-  {
-    title: "イベント開催",
-    desc: "児童館や区の施設と連携し、英語での様々なアクティビティやイベントを開催してます！",
-    image: "/images/HHEActivityCover.JPG",
-  },
-  {
-    title: "他団体との連携",
-    desc: "英語をメインとしてる他のボランティア団体とも協力し、より多くの子供たちに英語の楽しさを届けてます！",
-    image: "/images/HHEActivity.JPG",
-  },
-];
-
-  return (
-    <div
-      className="min-h-screen bg-white text-gray-800"
-      style={{
-        fontFamily:
-          "'Noto Sans JP', 'M PLUS Rounded 1c', 'Inter', 'Poppins', sans-serif",
-      }}
-    >
-      {/* Navigation */}
-      <nav className="bg-gradient-to-r from-pink-100 via-red-100 to-blue-100 shadow-sm sticky top-0 z-50 py-4 border-b border-pink-200 rounded-b-3xl">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <h1 className="text-2xl md:text-3xl font-extrabold text-pink-600 select-none">
-            Happy Hearts English
-          </h1>
-         <div className="hidden md:flex gap-6">
-  <a href="/about" className="text-pink-700 hover:text-red-500 font-semibold rounded-full px-3 py-1 transition-transform transform hover:scale-110">概要</a>
-  <a href="/activities" className="text-pink-700 hover:text-red-500 font-semibold rounded-full px-3 py-1 transition-transform transform hover:scale-110">活動内容</a>
-  <a href="#絵本" className="text-pink-700 hover:text-red-500 font-semibold rounded-full px-3 py-1 transition-transform transform hover:scale-110">絵本</a>
-  <a href="/News" className="text-pink-700 hover:text-red-500 font-semibold rounded-full px-3 py-1 transition-transform transform hover:scale-110">ニュース</a>
-  <a href="/Contact" className="text-pink-700 hover:text-red-500 font-semibold rounded-full px-3 py-1 transition-transform transform hover:scale-110">お問い合わせ</a>
-</div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <motion.section
-        className="bg-gradient-to-br from-pink-50 via-red-50 to-blue-50 py-20 px-6 rounded-b-3xl"
-        initial="hidden"
-        animate="visible"
-        variants={fadeIn}
-      >
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="text-pink-600 font-semibold mb-4 rounded-full inline-block px-3 py-1 bg-pink-100 select-none shadow-sm">
-              英語を楽しく、みんなに
-            </p>
-            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 text-pink-700 japanese-text">
-              Happy Hearts English
-              <br />のボランティア活動は
-              <br />
-              「楽しそう！」から始まる学びの旅
-            </h2>
-            <p className="text-lg text-pink-700 mb-8 leading-relaxed">
-              英語を通して笑顔を広げ、子どもたちの未来を応援しています。
-            </p>
-          </motion.div>
-
-         <motion.div
-  variants={fadeIn}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
->
-  <Image
-    src="/images/HHECHARACTER.jpg"
-    alt="Happy Hearts English ロゴキャラクター"
-    width={600}
-    height={600}
-    className="rounded-3xl shadow-lg object-cover w-full h-auto"
-  />
-</motion.div>
-        </div>
-      </motion.section>
-
-      {/* About Section */}
-      <section id="概要" className="py-20 px-6 bg-gradient-to-br from-pink-50 via-red-50 to-blue-50 rounded-t-3xl rounded-b-3xl">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-          <motion.div
-            variants={fadeIn}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <h3 className="text-3xl font-extrabold text-pink-600 mb-6 rounded-full inline-block px-4 py-2 bg-pink-200 shadow-md select-none">
-              Happy Hearts Englishの紹介
-            </h3>
-            <p className="text-lg text-pink-700 mb-4 leading-relaxed">
-              <span className="text-red-400 font-bold">Happy Hearts English</span>
-              は広尾学園小石川高校の生徒が立ち上げたボランティア団体です。絵本制作や楽しいアクティビティ、
-              他団体との連携を通して、英語の楽しさを広めています。
-            </p>
-            <p className="text-lg text-pink-700 mb-4 leading-relaxed">
-              性別、年齢、人種、などの枠組みを気にせずすべての人に英語教育を届け、楽しみながら子どもたちをグローバルな人材に育てることを目標としてます。
-            </p>
-            <p className="text-lg text-pink-700 leading-relaxed">
-              英語を通じて子どもたちの未来を明るく彩れるよう日々活動中です！
-            </p>
-          </motion.div>
-
-         <motion.div
-  variants={fadeIn}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true }}
->
-  <Image
-    src="/images/HHEteamphoto.jpg"
-    alt="Happy Hearts English チーム写真"
-    width={600}
-    height={600}
-    className="rounded-3xl shadow-lg object-cover w-full h-auto"
-  />
-</motion.div>
-        </div>
-        <div className="flex justify-center mt-10">
-          <a href="/about">
-            <motion.button
-              className="bg-gradient-to-r from-pink-400 via-red-400 to-pink-500 text-white px-8 py-4 rounded-full font-extrabold shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 hover:animate-bounce"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              もっと詳しく見る
-            </motion.button>
-          </a>
-        </div>
-      </section>
-
-      {/* Activities Section */}
-      <section id="活動内容" className="py-20 px-6 bg-gradient-to-br from-pink-50 via-red-50 to-blue-50 rounded-t-3xl">
-        <div className="max-w-7xl mx-auto text-center mb-16">
-          <h3 className="text-3xl md:text-5xl font-extrabold text-pink-600 rounded-full inline-block px-6 py-3 bg-pink-200 shadow-md select-none">
-            私たちの活動
-          </h3>
-        </div>
-        <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {activities.map((a, i) => (
-            <motion.div
-              key={i}
-              className="bg-pink-50 border border-pink-200 rounded-3xl p-8 hover:shadow-lg transition-transform transform hover:-translate-y-1 hover:scale-105"
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              whileHover={{ y: -5, scale: 1.05 }}
-            >
-           <Image
-  src={a.image}
-  alt={`${a.title} の画像`}
-  width={500}
-  height={300}
-  className="rounded-2xl mb-6 shadow-md object-contain w-full h-auto"
-  style={{ maxHeight: "250px" }}
-/>
-              <h4 className="text-xl font-extrabold text-red-400 mb-3 rounded-full inline-block px-3 py-1 bg-red-100 select-none">
-                {a.title}
-              </h4>
-              <p className="text-pink-700 leading-relaxed">{a.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-        <div className="flex justify-center mt-10">
-          <a href="/activities">
-            <motion.button
-              className="bg-gradient-to-r from-pink-400 via-red-400 to-pink-500 text-white px-8 py-4 rounded-full font-extrabold shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 hover:animate-bounce"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              活動を詳しく見る
-            </motion.button>
-          </a>
-        </div>
-      </section>
-
-      {/* Books Section - Single Book */}
-      <section id="絵本" className="py-20 px-6 bg-gradient-to-b from-pink-50 via-red-50 to-blue-50 rounded-b-3xl">
-        <div className="max-w-7xl mx-auto text-center mb-20">
-          <h3 className="text-3xl md:text-5xl font-extrabold text-pink-600 rounded-full inline-block px-6 py-3 bg-pink-200 shadow-md select-none">
-            絵本の紹介
-          </h3>
-        </div>
-        <div className="max-w-2xl mx-auto">
-          <motion.div
-            className="bg-white border border-pink-200 rounded-3xl p-8 shadow-md hover:shadow-lg transition-transform transform hover:scale-105"
-            variants={fadeIn}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <div className="flex justify-center mb-8">
-              <Image
-                src="/images/HHECOVER.png"
-                alt="Happy Hearts English ロゴキャラクター"
-                width={400}
-                height={333}
-                className="rounded-3xl shadow-lg object-cover"
-              />
-            </div>
-            <h4 className="text-2xl font-extrabold text-red-400 mb-4 rounded-full inline-block px-4 py-2 bg-red-100 select-none">
-              Our Amazing Body
-            </h4>
-            <p className="text-pink-700 text-lg leading-relaxed">
-              私たちの体について楽しく学べる英語絵本です。体の各部分の名前や機能を紹介し、子どもたちが英語で自分の体について話せるようになることを目指しています。
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Gallery Section */}
-      <section id="ギャラリー" className="py-20 px-6 bg-gradient-to-br from-pink-50 via-red-50 to-blue-50 rounded-t-3xl rounded-b-3xl">
-        <div className="max-w-7xl mx-auto text-center mb-16">
-          <h3 className="text-3xl md:text-5xl font-extrabold text-pink-600 rounded-full inline-block px-6 py-3 bg-pink-200 shadow-md select-none">
-            ギャラリー
-          </h3>
-          <p className="text-lg text-pink-700 mt-4">学びと遊びの瞬間を共有</p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl mx-auto">
-  {[
+  const galleryImages = [
     "/images/gallery1.JPG",
     "/images/gallery2.JPG",
     "/images/gallery3.JPG",
     "/images/gallery4.JPG",
     "/images/gallery5.JPG",
     "/images/gallery6.JPG",
-    "/images/gallery7.JPG",
-    "/images/HHECHARACTER.jpg",
-  ].map((src, i) => (
-    <div key={i} className="overflow-hidden rounded-3xl shadow-md">
-      <Image
-        src={src}
-        alt={`ギャラリー画像 ${i + 1}`}
-        width={400}
-        height={400}
-        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-      />
-    </div>
-  ))}
-</div>
+    "/images/HHEActivity.JPG",
+    "/images/HHEActivityCover.JPG",
+  ];
+
+  const values = [
+    {
+      icon: <Smile className="text-[#fb6f92]" size={32} />,
+      title: "Pure Joy",
+      titleJa: "学ぶ楽しさ",
+      desc: "英語を「勉強」ではなく「遊び」として捉え、子どもたちの純粋な笑顔を引き出すことを最優先にします。"
+    },
+    {
+      icon: <Star className="text-[#fb6f92]" size={32} />,
+      title: "Real Connection",
+      titleJa: "心のつながり",
+      desc: "言葉の壁を超えて、心と心が通じ合う瞬間の温かさを大切にしています。"
+    },
+    {
+      icon: <Heart className="text-[#fb6f92]" size={32} />,
+      title: "Growth Together",
+      titleJa: "共に育つ",
+      desc: "教える側も教わる側も、共に学び、新しい世界を広げていく成長の場を創ります。"
+    }
+  ];
+
+  return (
+    <div ref={containerRef} className="bg-[#fff0f5]">
+
+      {/* 01. HERO */}
+      <section className="relative h-screen flex items-center px-6 md:px-12 overflow-hidden bg-[#fff0f5]">
+        <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
+          <motion.div initial="hidden" animate="visible" className="text-left">
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-8">
+              <span className="writing-vertical text-[10px] font-black tracking-widest text-[#fb6f92]">01 / HERO</span>
+              <div className="h-px w-12 bg-[#fb6f92]/30" />
+              <span className="text-[12px] font-black tracking-[0.2em] text-[#fb6f92] uppercase">HHE Journey</span>
+            </motion.div>
+
+            <motion.h1 variants={fadeInUp} className="text-6xl md:text-[9.5rem] font-black text-[#4a3b43] leading-[0.8] mb-12 tracking-tighter">
+              Happy<br />
+              <span className="text-[#fb6f92]">Hearts.</span>
+            </motion.h1>
+
+            <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-[#4a3b43]/70 mb-14 leading-relaxed max-w-lg font-medium">
+              英語の「ワクワク」を、<br />
+              すべての子どもたちへ届ける物語。
+            </motion.p>
+
+            <motion.div variants={fadeInUp}>
+              <Link href="/about">
+                <Button size="lg" className="px-12 rounded-full border-2 border-[#fb6f92] bg-white text-[#fb6f92] hover:bg-[#fb6f92] hover:text-white shadow-xl transition-all h-20 text-xl font-black group">
+                  Our Full Story <ArrowRight size={20} className="ml-3 group-hover:translate-x-2 transition-transform" />
+                </Button>
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        <motion.div
+          style={{ y: heroImageY }}
+          className="absolute right-[-5%] top-[15%] w-[60%] lg:w-[45%] aspect-[4/3] opacity-20 lg:opacity-100 pointer-events-none"
+        >
+          <CloudImage
+            src="/images/HHECHARACTER.jpg"
+            alt="Happy Hearts"
+            className="w-full h-full rounded-[4rem] shadow-2xl"
+            priority
+          />
+        </motion.div>
       </section>
 
-      {/* News Section */}
-      <section id="ニュース" className="py-20 px-6 bg-gradient-to-br from-pink-50 via-red-50 to-blue-50 rounded-t-3xl">
-        <div className="max-w-6xl mx-auto text-center mb-16">
-          <h3 className="text-3xl md:text-5xl font-extrabold text-pink-600 rounded-full inline-block px-6 py-3 bg-pink-200 shadow-md select-none">
-            最新のニュース
-          </h3>
+      {/* 02. NARRATIVE */}
+      <Section bgText="IDENTITY" accentText="Identity / 02" className="pt-60">
+        <div className="grid lg:grid-cols-2 gap-32 items-center">
+          <div className="relative">
+            <h2 className="text-5xl md:text-8xl font-black text-[#4a3b43] mb-12 leading-[0.9] tracking-tighter">
+              一人一人の<br />
+              心が弾む。
+            </h2>
+            <p className="text-2xl text-[#4a3b43]/60 mb-10 leading-[2.2] font-medium max-w-lg">
+              広尾学園小石川高校の生徒が立ち上げた、<br />
+              小さな一歩から始まったボランティア団体。<br /><br />
+              英語が「世界とつながる喜び」に変わる瞬間を創り出します。
+            </p>
+          </div>
+
+          <div className="relative">
+            <CloudImage
+              src="/images/HHEteamphoto.jpg"
+              alt="Team"
+              className="w-full aspect-[4/3] rounded-[4rem] shadow-2xl"
+            />
+          </div>
         </div>
-        <div className="space-y-6 max-w-5xl mx-auto">
-         <Link href="/News">
-  <motion.article
-    className="bg-white border border-pink-200 rounded-3xl p-8 hover:shadow-lg transition-transform transform hover:scale-105 cursor-pointer"
-    variants={fadeIn}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-  >
-    <h4 className="text-xl font-extrabold text-red-400 mb-3 rounded-full inline-block px-3 py-1 bg-red-100 select-none">
-      Websiteを公開しました！
-    </h4>
-    <p className="text-pink-700 mb-4">
-      最近の活動レポートを詳しくご覧ください！
-    </p>
-    <p className="text-sm text-pink-400 select-none">2025年11月01日</p>
-    <p className="text-red-500 font-semibold hover:underline mt-3">→ 詳しく見る</p>
-  </motion.article>
-</Link>
+      </Section>
+
+      {/* 03. CORE VALUES - Premium Vertical Storyline */}
+      <Section bg="pink" bgText="VALUES" accentText="Our Heart / 03" className="py-80 bg-[#fffcfd]">
+        <div className="text-left mb-60 max-w-5xl mx-auto px-6">
+          <h2 className="text-6xl md:text-[10rem] font-black text-[#4a3b43] tracking-tighter mb-10 leading-none">Our Spirit.</h2>
+          <p className="text-xl md:text-2xl text-[#fb6f92] font-black tracking-[0.4em] uppercase decoration-[#fb6f92]/20 underline underline-offset-[16px] decoration-4">What moves us forward.</p>
+        </div>
+
+        <div className="max-w-7xl mx-auto space-y-64 px-6 md:px-12">
+          {values.map((v, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 100 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="relative py-24 group"
+            >
+              {/* Giant Aesthetic Index Only */}
+              <div className="absolute left-1/2 md:left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 md:translate-x-0 pointer-events-none z-0 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-[2s]">
+                <span className="text-[20rem] md:text-[40rem] font-black text-[#fb6f92] select-none leading-none">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </div>
+
+              {/* Sophisticated Narrative Block */}
+              <div className={`relative z-10 flex flex-col ${i % 2 === 0 ? "md:items-start text-left" : "md:items-end text-right"} items-center space-y-6 md:space-y-10`}>
+                <h3 className="text-6xl md:text-[12rem] font-black text-[#4a3b43] mb-4 tracking-tighter leading-none italic group-hover:not-italic transition-all duration-[1s] ease-in-out">
+                  {v.title}
+                </h3>
+                <p className="text-[#fb6f92] font-black text-2xl md:text-3xl tracking-[0.5em] uppercase opacity-40">
+                  {v.titleJa}
+                </p>
+                <p className="text-2xl md:text-5xl text-[#4a3b43]/60 font-medium leading-[1.6] max-w-5xl tracking-tight">
+                  {v.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      {/* 04. IMPACT STATS */}
+      <Section bgText="IMPACT" className="py-60 border-t border-[#fb6f92]/5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+          {[
+            { num: "20+", label: "Members", labelJa: "活動メンバー" },
+            { num: "130+", label: "Volunteer Hours", labelJa: "ボランティア時間" },
+            { num: "1+", label: "Years", labelJa: "活動年数" },
+            { num: "100%", label: "Smiles", labelJa: "笑顔の数" },
+          ].map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8, ease: "backOut" }}
+              className="flex flex-col items-center"
+            >
+              <span className="text-6xl md:text-[8rem] font-black text-[#fb6f92] leading-none mb-4 tracking-tighter drop-shadow-sm">{s.num}</span>
+              <span className="text-xl font-black text-[#4a3b43] uppercase tracking-[0.1em]">{s.label}</span>
+              <span className="text-xs font-bold text-[#4a3b43]/40 mt-2">{s.labelJa}</span>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      {/* 05. ACTIVITIES */}
+      <Section bgText="ACTIVITY" accentText="What we do / 05" className="bg-[#fff0f5] pt-60">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-8">
+          <h2 className="text-5xl md:text-8xl font-black text-[#4a3b43] tracking-tighter">Activities.</h2>
+          <Link href="/activities">
+            <span className="text-[#fb6f92] font-black text-lg border-b-4 border-[#fb6f92]/10 hover:border-[#fb6f92] pb-2 transition-all cursor-pointer">Explore All</span>
+          </Link>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-12 items-start">
+          {[
+            { title: "絵本制作", src: "/images/HHECOVER.png" },
+            { title: "イベント開催", src: "/images/HHEActivityCover.JPG" },
+            { title: "他団体連携", src: "/images/HHEActivity.JPG" }
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8 }}
+              className="group"
+            >
+              <div className="w-full aspect-[4/3] mb-10 rounded-[3rem] overflow-hidden shadow-xl">
+                <CloudImage src={item.src} alt={item.title} className="w-full h-full" />
+              </div>
+              <h3 className="text-3xl font-black text-[#4a3b43] group-hover:text-[#fb6f92] transition-colors">{item.title}</h3>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      {/* 06. MOMENTS */}
+      <section className="py-60 bg-[#fff0f5] overflow-hidden relative">
+        <div className="floating-bg-text !text-[30vw] opacity-[0.02]">MOMENTS</div>
+
+        <div className="mb-24 px-6 max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-6xl font-black text-[#4a3b43] tracking-tighter">Captured Memories.</h2>
+        </div>
+
+        <div className="rotate-[-1deg]">
+          <div className="animate-marquee">
+            {[...galleryImages, ...galleryImages].map((src, i) => (
+              <div key={i} className="w-[350px] md:w-[500px] aspect-video relative mx-6 rounded-[3rem] overflow-hidden shadow-2xl">
+                <img src={src} alt="Gallery" className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <motion.section
-        className="bg-gradient-to-r from-pink-500 via-red-500 to-pink-600 text-white py-24 px-6 text-center rounded-t-3xl"
-        variants={fadeIn}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-      >
-        <h3 className="text-3xl md:text-5xl font-extrabold mb-6 select-none">
-          活動に参加しませんか？
-        </h3>
-        <p className="text-xl mb-10">
-          ボランティア、パートナーシップ、お問い合わせはこちら
-        </p>
-        <Link href="/Contact">
-          <motion.button
-            className="bg-gradient-to-r from-pink-400 via-red-400 to-pink-500 text-white px-12 py-5 rounded-full font-extrabold text-xl shadow-lg hover:shadow-xl transition-transform transform hover:scale-110 hover:animate-bounce"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            お問い合わせ
-          </motion.button>
-        </Link>
-      </motion.section>
-
-      {/* Footer */}
-      <footer className="bg-gradient-to-r from-pink-600 via-red-600 to-pink-700 text-white py-16 px-6 rounded-b-3xl">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
-          <div>
-            <h4 className="text-2xl font-extrabold mb-4 select-none">Happy Hearts English</h4>
-            <p className="text-pink-200">
-              英語の楽しさを日々広めてまいります。
-            </p>
-          </div>
-          <div>
-            <h4 className="text-xl font-extrabold mb-4 select-none">リンク</h4>
-            <ul className="space-y-2 text-pink-200">
-              {["概要", "活動内容", "絵本", "ギャラリー"].map((item) => (
-                <li key={item}>
-                  <a
-                    href={`#${item}`}
-                    className="hover:text-white hover:pl-2 transition inline-block select-none"
-                  >
-                    ✦ {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-xl font-extrabold mb-4 select-none">お問い合わせ</h4>
-            <p className="text-pink-200 mb-2 select-none">
-              englishhappyhearts@gmail.com
-            </p>
-            <p className="text-pink-200 select-none">文京区</p>
-          </div>
+      {/* 07. CALL TO ACTION */}
+      <section className="bg-[#fb6f92] text-white py-60 px-6 rounded-t-[8rem] relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <h2 className="text-5xl md:text-9xl font-black mb-14 leading-[0.85] tracking-tighter">
+            Let&apos;s build the<br />
+            next chapter.
+          </h2>
+          <p className="text-xl md:text-2xl text-white/80 mb-20 font-medium leading-loose">
+            ボランティア、パートナーシップ、制作のご相談。<br />
+            あなたの温かい一歩をお待ちしています。
+          </p>
+          <Link href="/contact">
+            <motion.button
+              whileHover={{ scale: 1.05, y: -5 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-white text-[#fb6f92] px-20 py-10 rounded-full font-black text-2xl shadow-2xl transition-all"
+            >
+              Connect with us
+            </motion.button>
+          </Link>
         </div>
-        <div className="border-t border-pink-300/40 pt-8 text-center mt-10 text-pink-200 select-none">
-          © 2025 Happy Hearts English and Yuta Kodama. All rights reserved.
-        </div>
-      </footer>
-    {/* Inline style for .japanese-text */}
-    <style>
-      {`
-        .japanese-text {
-          word-break: keep-all;
-          overflow-wrap: anywhere;
-        }
-      `}
-    </style>
+      </section>
     </div>
   );
 }
