@@ -38,9 +38,9 @@ export default function ActivitiesPage() {
         <div className="bg-[#fff0f5]">
 
             {/* Hero */}
-            <Section bgText="CREATION" accentText="What we build / 01" className="pt-60">
+            <Section bgText="CREATION" accentText="What we build / 01" className="pt-32 md:pt-60">
                 <div className="max-w-4xl">
-                    <h1 className="text-6xl md:text-[10rem] font-black text-[#4a3b43] mb-16 leading-[0.8] tracking-tighter">
+                    <h1 className="text-5xl md:text-6xl lg:text-[10rem] font-black text-[#4a3b43] mb-8 md:mb-16 leading-[1.1] md:leading-[0.8] tracking-tighter">
                         Our<br />
                         <span className="text-[#fb6f92]">Work.</span>
                     </h1>
@@ -52,25 +52,25 @@ export default function ActivitiesPage() {
             </Section>
 
             {/* Structured List */}
-            <div className="pb-80">
+            <div className="pb-32 md:pb-80">
                 {activities.map((act, i) => (
                     <Section
                         key={i}
                         bgText={act.label.toUpperCase()}
-                        className="py-60"
+                        className="py-32 md:py-60"
                     >
-                        <div className={`grid lg:grid-cols-2 gap-32 items-center ${i % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
+                        <div className={`grid lg:grid-cols-2 gap-16 md:gap-32 items-center ${i % 2 === 1 ? "lg:flex-row-reverse" : ""}`}>
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                <h2 className="text-5xl font-black text-[#4a3b43] mb-12 tracking-tighter underline decoration-[#fb6f92]/20 underline-offset-8 decoration-8">{act.title}</h2>
-                                <p className="text-2xl text-[#4a3b43]/70 font-medium leading-[2.2] mb-12">
+                                <h2 className="text-3xl md:text-5xl font-black text-[#4a3b43] mb-8 md:mb-12 tracking-tighter underline decoration-[#fb6f92]/20 underline-offset-[6px] md:underline-offset-8 decoration-[4px] md:decoration-8">{act.title}</h2>
+                                <p className="text-xl md:text-2xl text-[#4a3b43]/70 font-medium leading-[2.2] mb-8 md:mb-12">
                                     {act.desc}
                                 </p>
-                                <div className="bg-[#fff0f5] p-12 rounded-[3rem] border-l-[12px] border-[#fb6f92] relative shadow-xl shadow-[#fb6f92]/5">
+                                <div className="bg-[#fff0f5] p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] border-l-[8px] md:border-l-[12px] border-[#fb6f92] relative shadow-xl shadow-[#fb6f92]/5">
                                     <p className="text-[#4a3b43] italic text-xl leading-relaxed mb-6 font-medium">
                                         &quot;{act.voice}&quot;
                                     </p>
@@ -95,13 +95,13 @@ export default function ActivitiesPage() {
                 ))}
             </div>
 
-            <Section className="text-center bg-[#fb6f92] text-white py-60 rounded-t-[10rem] overflow-hidden">
-                <h3 className="text-4xl md:text-[8rem] font-black mb-16 leading-[0.8] tracking-tighter relative z-10">
+            <Section className="text-center bg-[#fb6f92] text-white py-32 md:py-60 rounded-t-[4rem] md:rounded-t-[10rem] overflow-hidden">
+                <h3 className="text-3xl md:text-4xl lg:text-[8rem] font-black mb-10 md:mb-16 leading-[1.1] md:leading-[0.8] tracking-tighter relative z-10">
                     New<br />
                     Chapter.
                 </h3>
                 <Link href="/contact" className="relative z-10">
-                    <Button size="lg" className="bg-white text-[#fb6f92] px-20 py-10 rounded-full shadow-2xl h-24 text-2xl font-black transition-transform hover:scale-105">
+                    <Button size="lg" className="bg-white text-[#fb6f92] px-12 md:px-20 py-6 md:py-10 rounded-full shadow-2xl h-16 md:h-24 text-lg md:text-2xl font-black transition-transform hover:scale-105">
                         GET INVOLVED
                     </Button>
                 </Link>

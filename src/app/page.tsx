@@ -68,7 +68,7 @@ export default function Home() {
               <span className="text-[12px] font-black tracking-[0.2em] text-[#fb6f92] uppercase">HHE Journey</span>
             </motion.div>
 
-            <motion.h1 variants={fadeInUp} className="text-6xl md:text-[9.5rem] font-black text-[#4a3b43] leading-[0.8] mb-12 tracking-tighter">
+            <motion.h1 variants={fadeInUp} className="text-5xl md:text-6xl lg:text-[9.5rem] font-black text-[#4a3b43] leading-[1] md:leading-[0.8] mb-8 md:mb-12 tracking-tighter">
               Happy<br />
               <span className="text-[#fb6f92]">Hearts.</span>
             </motion.h1>
@@ -105,7 +105,7 @@ export default function Home() {
       <Section bgText="IDENTITY" accentText="Identity / 02" className="pt-60">
         <div className="grid lg:grid-cols-2 gap-32 items-center">
           <div className="relative">
-            <h2 className="text-5xl md:text-8xl font-black text-[#4a3b43] mb-12 leading-[0.9] tracking-tighter">
+            <h2 className="text-4xl md:text-5xl lg:text-8xl font-black text-[#4a3b43] mb-8 md:mb-12 leading-[1.1] md:leading-[0.9] tracking-tighter">
               一人一人の<br />
               心が弾む。
             </h2>
@@ -127,13 +127,13 @@ export default function Home() {
       </Section>
 
       {/* 03. CORE VALUES - Premium Vertical Storyline */}
-      <Section bg="pink" bgText="VALUES" accentText="Our Heart / 03" className="py-80 bg-[#fffcfd]">
-        <div className="text-left mb-60 max-w-5xl mx-auto px-6">
-          <h2 className="text-6xl md:text-[10rem] font-black text-[#4a3b43] tracking-tighter mb-10 leading-none">Our Spirit.</h2>
-          <p className="text-xl md:text-2xl text-[#fb6f92] font-black tracking-[0.4em] uppercase decoration-[#fb6f92]/20 underline underline-offset-[16px] decoration-4">What moves us forward.</p>
+      <Section bg="pink" bgText="VALUES" accentText="Our Heart / 03" className="py-32 md:py-80 bg-[#fffcfd]">
+        <div className="text-left mb-32 md:mb-60 max-w-5xl mx-auto px-6">
+          <h2 className="text-4xl md:text-6xl lg:text-[10rem] font-black text-[#4a3b43] tracking-tighter mb-8 md:mb-10 leading-none">Our Spirit.</h2>
+          <p className="text-sm md:text-xl lg:text-2xl text-[#fb6f92] font-black tracking-[0.2em] md:tracking-[0.4em] uppercase decoration-[#fb6f92]/20 underline underline-offset-[8px] md:underline-offset-[16px] decoration-2 md:decoration-4">What moves us forward.</p>
         </div>
 
-        <div className="max-w-7xl mx-auto space-y-64 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto space-y-32 md:space-y-64 px-6 md:px-12">
           {values.map((v, i) => (
             <motion.div
               key={i}
@@ -141,21 +141,21 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              className="relative py-24 group"
+              className="relative py-12 md:py-24 group"
             >
               {/* Giant Aesthetic Index Only */}
               <div className="absolute left-1/2 md:left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 md:translate-x-0 pointer-events-none z-0 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-[2s]">
-                <span className="text-[20rem] md:text-[40rem] font-black text-[#fb6f92] select-none leading-none">
+                <span className="text-[12rem] md:text-[20rem] lg:text-[40rem] font-black text-[#fb6f92] select-none leading-none">
                   {String(i + 1).padStart(2, '0')}
                 </span>
               </div>
 
               {/* Sophisticated Narrative Block */}
-              <div className={`relative z-10 flex flex-col ${i % 2 === 0 ? "md:items-start text-left" : "md:items-end text-right"} items-center space-y-6 md:space-y-10`}>
-                <h3 className="text-6xl md:text-[12rem] font-black text-[#4a3b43] mb-4 tracking-tighter leading-none italic group-hover:not-italic transition-all duration-[1s] ease-in-out">
+              <div className={`relative z-10 flex flex-col ${i % 2 === 0 ? "md:items-start text-left" : "md:items-end text-right"} items-center space-y-4 md:space-y-6 lg:space-y-10`}>
+                <h3 className="text-4xl md:text-6xl lg:text-[12rem] font-black text-[#4a3b43] mb-4 tracking-tighter leading-none italic group-hover:not-italic transition-all duration-[1s] ease-in-out">
                   {v.title}
                 </h3>
-                <p className="text-[#fb6f92] font-black text-2xl md:text-3xl tracking-[0.5em] uppercase opacity-40">
+                <p className="text-[#fb6f92] font-black text-lg md:text-2xl lg:text-3xl tracking-[0.2em] md:tracking-[0.5em] uppercase opacity-40">
                   {v.titleJa}
                 </p>
                 <p className="text-2xl md:text-5xl text-[#4a3b43]/60 font-medium leading-[1.6] max-w-5xl tracking-tight">
@@ -168,7 +168,7 @@ export default function Home() {
       </Section>
 
       {/* 04. IMPACT STATS */}
-      <Section bgText="IMPACT" className="py-60 border-t border-[#fb6f92]/5">
+      <Section bgText="IMPACT" className="py-32 md:py-60 border-t border-[#fb6f92]/5">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
           {[
             { num: "20+", label: "Members", labelJa: "活動メンバー" },
@@ -184,20 +184,20 @@ export default function Home() {
               transition={{ delay: i * 0.1, duration: 0.8, ease: "backOut" }}
               className="flex flex-col items-center"
             >
-              <span className="text-6xl md:text-[8rem] font-black text-[#fb6f92] leading-none mb-4 tracking-tighter drop-shadow-sm">{s.num}</span>
-              <span className="text-xl font-black text-[#4a3b43] uppercase tracking-[0.1em]">{s.label}</span>
-              <span className="text-xs font-bold text-[#4a3b43]/40 mt-2">{s.labelJa}</span>
+              <span className="text-4xl md:text-6xl lg:text-[8rem] font-black text-[#fb6f92] leading-none mb-4 tracking-tighter drop-shadow-sm">{s.num}</span>
+              <span className="text-sm md:text-xl font-black text-[#4a3b43] uppercase tracking-[0.05em] md:tracking-[0.1em]">{s.label}</span>
+              <span className="text-[10px] md:text-xs font-bold text-[#4a3b43]/40 mt-1 md:mt-2">{s.labelJa}</span>
             </motion.div>
           ))}
         </div>
       </Section>
 
       {/* 05. ACTIVITIES */}
-      <Section bgText="ACTIVITY" accentText="What we do / 05" className="bg-[#fff0f5] pt-60">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-8">
-          <h2 className="text-5xl md:text-8xl font-black text-[#4a3b43] tracking-tighter">Activities.</h2>
+      <Section bgText="ACTIVITY" accentText="What we do / 05" className="bg-[#fff0f5] pt-32 md:pt-60">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-32 gap-6 md:gap-8">
+          <h2 className="text-4xl md:text-5xl lg:text-8xl font-black text-[#4a3b43] tracking-tighter">Activities.</h2>
           <Link href="/activities">
-            <span className="text-[#fb6f92] font-black text-lg border-b-4 border-[#fb6f92]/10 hover:border-[#fb6f92] pb-2 transition-all cursor-pointer">Explore All</span>
+            <span className="text-[#fb6f92] font-black text-sm md:text-lg border-b-2 md:border-b-4 border-[#fb6f92]/10 hover:border-[#fb6f92] pb-1 md:pb-2 transition-all cursor-pointer">Explore All</span>
           </Link>
         </div>
 
@@ -225,17 +225,17 @@ export default function Home() {
       </Section>
 
       {/* 06. MOMENTS */}
-      <section className="py-60 bg-[#fff0f5] overflow-hidden relative">
+      <section className="py-32 md:py-60 bg-[#fff0f5] overflow-hidden relative">
         <div className="floating-bg-text !text-[30vw] opacity-[0.02]">MOMENTS</div>
 
-        <div className="mb-24 px-6 max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-6xl font-black text-[#4a3b43] tracking-tighter">Captured Memories.</h2>
+        <div className="mb-12 md:mb-24 px-6 max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl lg:text-6xl font-black text-[#4a3b43] tracking-tighter">Captured Memories.</h2>
         </div>
 
         <div className="rotate-[-1deg]">
           <div className="animate-marquee">
             {[...galleryImages, ...galleryImages].map((src, i) => (
-              <div key={i} className="w-[350px] md:w-[500px] aspect-video relative mx-6 rounded-[3rem] overflow-hidden shadow-2xl">
+              <div key={i} className="w-[80vw] md:w-[400px] lg:w-[500px] aspect-video relative mx-4 md:mx-6 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-xl md:shadow-2xl">
                 <img src={src} alt="Gallery" className="w-full h-full object-cover" />
               </div>
             ))}
@@ -244,9 +244,9 @@ export default function Home() {
       </section>
 
       {/* 07. CALL TO ACTION */}
-      <section className="bg-[#fb6f92] text-white py-60 px-6 rounded-t-[8rem] relative overflow-hidden">
+      <section className="bg-[#fb6f92] text-white py-32 md:py-60 px-6 rounded-t-[4rem] md:rounded-t-[8rem] relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h2 className="text-5xl md:text-9xl font-black mb-14 leading-[0.85] tracking-tighter">
+          <h2 className="text-4xl md:text-5xl lg:text-9xl font-black mb-8 md:mb-14 leading-[1.1] md:leading-[0.85] tracking-tighter">
             Let&apos;s build the<br />
             next chapter.
           </h2>

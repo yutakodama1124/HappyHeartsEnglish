@@ -42,7 +42,7 @@ export const Section = ({
         <section
             id={id}
             ref={containerRef}
-            className={cn("py-40 px-6 relative overflow-hidden", bgStyles[bg], className)}
+            className={cn("py-20 md:py-40 px-6 relative overflow-hidden", bgStyles[bg], className)}
         >
             {/* Large Floating Background Text */}
             {bgText && (

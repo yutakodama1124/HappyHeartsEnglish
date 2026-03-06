@@ -41,9 +41,9 @@ export default function AboutPage() {
     <div className="bg-[#fff0f5]">
 
       {/* Hero Section */}
-      <Section bgText="STORY" accentText="Story / 01" className="pt-60">
+      <Section bgText="STORY" accentText="Story / 01" className="pt-32 md:pt-60">
         <div className="max-w-5xl">
-          <h1 className="text-6xl md:text-[10rem] font-black text-[#4a3b43] mb-16 leading-[0.8] tracking-tighter">
+          <h1 className="text-5xl md:text-6xl lg:text-[10rem] font-black text-[#4a3b43] mb-8 md:mb-16 leading-[1.1] md:leading-[0.8] tracking-tighter">
             Our<br />
             <span className="text-[#fb6f92]">Identity.</span>
           </h1>
@@ -55,13 +55,13 @@ export default function AboutPage() {
       </Section>
 
       {/* Origin Narrative */}
-      <Section bg="pink" bgText="ORIGIN" accentText="Beginning / 02" className="py-60">
-        <div className="grid lg:grid-cols-2 gap-32 items-center">
-          <div className="relative aspect-[4/3] w-full max-w-xl">
-            <CloudImage src="/images/HHEteamphoto.jpg" alt="Team" className="rounded-[3rem]" />
+      <Section bg="pink" bgText="ORIGIN" accentText="Beginning / 02" className="py-32 md:py-60">
+        <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
+          <div className="relative aspect-[4/3] w-full max-w-xl mx-auto">
+            <CloudImage src="/images/HHEteamphoto.jpg" alt="Team" className="rounded-[2rem] md:rounded-[3rem]" />
           </div>
           <div>
-            <h2 className="text-4xl md:text-6xl font-black text-[#4a3b43] mb-12 tracking-tighter">「もっと楽しく」<br />その一歩。</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black text-[#4a3b43] mb-8 md:mb-12 tracking-tighter">「もっと楽しく」<br />その一歩。</h2>
             <div className="space-y-8 text-xl text-[#4a3b43]/70 font-medium leading-[2.2]">
               <p>
                 メンバーの多くが帰国子女として、言葉が通じた時の「心の温かさ」を知っています。
@@ -76,10 +76,10 @@ export default function AboutPage() {
       </Section>
 
       {/* Leadership - Clean Rectangular Grid */}
-      <Section bgText="TEAM" className="py-60">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-8">
-          <h2 className="text-5xl md:text-8xl font-black text-[#4a3b43] tracking-tighter">Leadership.</h2>
-          <p className="text-[#fb6f92] font-black text-lg">創設メンバー / 共同代表</p>
+      <Section bgText="TEAM" className="py-32 md:py-60">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-32 gap-6 md:gap-8">
+          <h2 className="text-4xl md:text-5xl lg:text-8xl font-black text-[#4a3b43] tracking-tighter">Leadership.</h2>
+          <p className="text-[#fb6f92] font-black text-sm md:text-lg">創設メンバー / 共同代表</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -115,15 +115,15 @@ export default function AboutPage() {
       </Section>
 
       {/* Founder's Message - HEARTFELT BLOCK */}
-      <Section className="py-60 bg-[#fff0f5]" bgText="MESSAGE">
+      <Section className="py-32 md:py-60 bg-[#fff0f5]" bgText="MESSAGE">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-[#fff0f5] p-12 md:p-24 rounded-[5rem] relative shadow-2xl border border-[#fb6f92]/20"
+            className="bg-[#fff0f5] p-8 md:p-12 lg:p-24 rounded-[3rem] md:rounded-[5rem] relative shadow-xl md:shadow-2xl border border-[#fb6f92]/20"
           >
-            <h2 className="text-4xl md:text-6xl font-black text-[#4a3b43] mb-12 tracking-tighter leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black text-[#4a3b43] mb-8 md:mb-12 tracking-tighter leading-tight">
               一人一人の笑顔が、<br />
               私たちの原動力です。
             </h2>
@@ -159,11 +159,11 @@ export default function AboutPage() {
       </Section>
 
       {/* Members List - Clean, Non-shabby Ticker/Grid */}
-      <section className="py-60 px-6 bg-[#fff0f5] relative overflow-hidden">
+      <section className="py-32 md:py-60 px-6 bg-[#fff0f5] relative overflow-hidden">
         <div className="floating-bg-text opacity-[0.03]">MEMBERS</div>
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex items-center gap-10 mb-32">
-            <h2 className="text-5xl font-black text-[#4a3b43] tracking-tighter underline decoration-[#fb6f92]/20 underline-offset-8">Our Family.</h2>
+          <div className="flex items-center gap-10 mb-16 md:mb-32">
+            <h2 className="text-4xl md:text-5xl font-black text-[#4a3b43] tracking-tighter underline decoration-[#fb6f92]/20 underline-offset-[4px] md:underline-offset-8">Our Family.</h2>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-12 gap-y-20">

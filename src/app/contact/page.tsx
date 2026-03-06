@@ -46,9 +46,9 @@ export default function ContactPage() {
 
   return (
     <div className="bg-[#fffcfd]">
-      <Section accentText="Contact / 01" className="pt-40">
-        <div className="max-w-4xl mx-auto text-center mb-20">
-          <h1 className="text-5xl md:text-8xl font-black text-[#4a3b43] mb-8 tracking-tighter">
+      <Section accentText="Contact / 01" className="pt-32 md:pt-40">
+        <div className="max-w-4xl mx-auto text-center mb-16 md:mb-20">
+          <h1 className="text-4xl md:text-5xl lg:text-8xl font-black text-[#4a3b43] mb-6 md:mb-8 tracking-tighter">
             Get in<br />
             <span className="text-[#fb6f92]">Touch.</span>
           </h1>
@@ -59,8 +59,8 @@ export default function ContactPage() {
         </div>
 
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white p-10 md:p-14 rounded-[3.5rem] shadow-2xl border border-[#fb6f92]/10">
-            <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="bg-white p-6 md:p-10 lg:p-14 rounded-[2rem] md:rounded-[3.5rem] shadow-xl md:shadow-2xl border border-[#fb6f92]/10">
+            <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
               <div>
                 <label className="block font-black text-[#4a3b43] mb-3 text-xs uppercase tracking-widest pl-1">Name</label>
                 <input
@@ -123,8 +123,8 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="mt-24 grid md:grid-cols-2 gap-10 max-w-2xl mx-auto">
-          <div className="flex flex-col items-center gap-4 bg-white p-8 rounded-3xl border border-[#fb6f92]/5">
+        <div className="mt-16 md:mt-24 grid md:grid-cols-2 gap-6 md:gap-10 max-w-2xl mx-auto">
+          <div className="flex flex-col items-center gap-2 md:gap-4 bg-white p-6 md:p-8 rounded-2xl md:rounded-3xl border border-[#fb6f92]/5">
             <Mail size={24} className="text-[#fb6f92]" />
             <p className="font-black text-[#4a3b43] text-sm">englishhappyhearts@gmail.com</p>
           </div>

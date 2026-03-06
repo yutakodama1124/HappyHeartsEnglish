@@ -10,7 +10,7 @@ export default function NewsDetailPage() {
 
   return (
     <div className="bg-[#fffcfd]">
-      <Section accentText="Journal / 01" className="pt-40">
+      <Section accentText="Journal / 01" className="pt-32 md:pt-40">
         <Link href="/">
           <Button variant="ghost" size="sm" className="mb-12 pl-0 hover:pl-2 transition-all text-[#4a3b43]/40">
             ← Back to Journey
@@ -18,7 +18,7 @@ export default function NewsDetailPage() {
         </Link>
 
         <article className="max-w-4xl mx-auto">
-          <div className="relative aspect-video w-full rounded-[3rem] overflow-hidden shadow-2xl mb-16 border-[12px] border-white bg-white">
+          <div className="relative aspect-video w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-xl md:shadow-2xl mb-12 md:mb-16 border-[8px] md:border-[12px] border-white bg-white">
             <Image
               src="/images/HHEWEBSITE.png"
               alt="Website Launch"
@@ -35,12 +35,12 @@ export default function NewsDetailPage() {
               <span className="text-[10px] font-black uppercase text-[#4a3b43]/30 tracking-[0.2em]">Release</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-black text-[#4a3b43] mb-12 leading-tight tracking-tighter">
+            <h1 className="text-3xl md:text-4xl lg:text-6xl font-black text-[#4a3b43] mb-8 md:mb-12 leading-tight tracking-tighter">
               Websiteを<br />公開しました！
             </h1>
 
-            <div className="prose prose-pink prose-lg max-w-none text-[#4a3b43]/70 font-medium leading-loose">
-              <p className="mb-10 text-xl text-[#4a3b43]">
+            <div className="prose prose-pink prose-base md:prose-lg max-w-none text-[#4a3b43]/70 font-medium leading-loose">
+              <p className="mb-8 md:mb-10 text-lg md:text-xl text-[#4a3b43]">
                 この度、Happy Hearts Englishの公式ウェブサイトを公開しました。
               </p>
               <div className="bg-[#fff0f5] p-10 rounded-[3rem] my-12 border border-[#fb6f92]/5 relative">
