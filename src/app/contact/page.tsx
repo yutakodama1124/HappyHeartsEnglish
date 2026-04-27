@@ -1,20 +1,13 @@
-import type { Metadata } from "next";
 import ContactClient from "./ContactClient";
+import { buildPageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Contact",
   description:
     "Happy Hearts Englishへのお問い合わせ。ボランティア参加、パートナーシップ、イベント連携など、お気軽にご連絡ください。",
-  alternates: {
-    canonical: "https://happy-hearts-english.vercel.app/contact",
-  },
-  openGraph: {
-    title: "Contact | Happy Hearts English",
-    description:
-      "ボランティア参加やパートナーシップのご相談はこちら。Happy Hearts Englishへお気軽にご連絡ください。",
-    url: "https://happy-hearts-english.vercel.app/contact",
-  },
-};
+  path: "/contact",
+  keywords: ["お問い合わせ", "ボランティア参加", "イベント連携"],
+});
 
 export default function ContactPage() {
   return <ContactClient />;
