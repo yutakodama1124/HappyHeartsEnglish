@@ -346,22 +346,8 @@ export default function AboutClient() {
             <motion.div
               key={name}
               variants={fadeUp((index % 4) * 0.04)}
-              role={name === "Ai Koike" ? "button" : undefined}
-              tabIndex={name === "Ai Koike" ? 0 : undefined}
               onClick={name === "Ai Koike" ? () => triggerLoveBurst("ai") : undefined}
-              onKeyDown={
-                name === "Ai Koike"
-                  ? (event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault();
-                        triggerLoveBurst("ai");
-                      }
-                    }
-                  : undefined
-              }
-              className={`soft-panel px-5 py-5 ${
-                name === "Ai Koike" ? "cursor-pointer transition-transform hover:-translate-y-0.5 focus-ring" : ""
-              }`}
+              className="soft-panel px-5 py-5"
             >
               <div>
                 <h3 className="text-xl font-black text-[var(--foreground)]">{name}</h3>
