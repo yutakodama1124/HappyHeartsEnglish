@@ -1,94 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;800&display=swap");
 @import "tailwindcss";
 
 :root {
-  /* Strictly Pink & Natural Palette - Refined for "Awwwards" feel */
-  --background: #fff0f5;
-  /* Soft, warm Happy Hearts Pink */
-  --foreground: #4a3b43;
-  /* even warmer dark gray for better readability */
-
-  --color-pink-50: #fff0f5;
-  --color-pink-100: #ffe4e9;
-  --color-pink-200: #ffb7c5;
-  --color-pink-500: #fb6f92;
-  --color-pink-600: #e25578;
-
-  --shadow-soft: 0 10px 40px -10px rgba(226, 85, 120, 0.15);
+  --paper: #fffcfd;
+  --blush: #fff0f5;
+  --ink: #4a3b43;
+  --pink: #fb6f92;
+  --pink-deep: #e25578;
+  --sun: #ffd166;
+  --background: var(--paper);
+  --background-strong: var(--blush);
+  --surface: #ffffff;
+  --surface-strong: var(--paper);
+  --foreground: var(--ink);
+  --foreground-soft: color-mix(in srgb, var(--ink) 72%, transparent);
+  --line-soft: color-mix(in srgb, var(--ink) 11%, transparent);
+  --line-strong: color-mix(in srgb, var(--pink-deep) 30%, transparent);
+  --r-sm: 12px;
+  --r-md: 20px;
+  --r-lg: 32px;
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --shadow-card: 0 2px 16px rgba(226, 85, 120, 0.08);
+  --shadow-lift: 0 12px 32px rgba(226, 85, 120, 0.14);
+  --t-display: clamp(2.6rem, 5.5vw, 4.75rem);
+  --t-h2: clamp(1.9rem, 3.2vw, 2.75rem);
+  --t-h3: clamp(1.35rem, 2vw, 1.6rem);
+  --t-body: 1.0625rem;
+  --t-caption: 0.8125rem;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: "M PLUS Rounded 1c", "Noto Sans JP", sans-serif;
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+}
 
-  --radius-xl: 1.5rem;
-  --radius-2xl: 2rem;
-  --radius-3xl: 3.5rem;
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--paper);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-sans);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Vertical Text Utility - A Japanese Design Hallmark */
-.writing-vertical {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+a,
+button,
+input,
+textarea {
+  transition-timing-function: var(--ease-out);
 }
 
-/* Rectangular Image Container with Soft Corners */
-.img-container {
-  overflow: hidden;
-  border-radius: 1.5rem;
-  /* Soft but rectangular */
-  background: #fff0f5;
+button,
+a,
+input,
+textarea {
+  -webkit-tap-highlight-color: color-mix(in srgb, var(--pink) 18%, transparent);
+}
+
+img {
+  max-width: 100%;
+}
+
+.nav-island {
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-card);
+}
+
+.section-shell {
+  padding-block: 6rem;
+  padding-inline: 1.5rem;
   position: relative;
+  overflow: hidden;
 }
 
-.img-container img {
+@media (min-width: 768px) {
+  .section-shell {
+    padding-block: 8rem;
+  }
+}
+
+.container-shell {
+  width: min(100%, 76rem);
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-140%);
+  border-radius: var(--r-sm);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1rem;
+  font-weight: 800;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.display-title {
+  font-size: var(--t-h2);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.display-title--hero {
+  font-size: var(--t-display);
+}
+
+.hero-title {
+  font-size: var(--t-display);
+  line-height: 1.12;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.title-h3 {
+  font-size: var(--t-h3);
+  line-height: 1.25;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.section-title {
+  font-size: var(--t-h2);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.body-lg {
+  max-width: 38em;
+  font-size: var(--t-body);
+  line-height: 1.9;
+  color: var(--foreground-soft);
+}
+
+.body-xl {
+  max-width: 38em;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  line-height: 1.9;
+  color: var(--foreground-soft);
+}
+
+.surface-card {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.soft-panel {
+  background: var(--paper);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-md);
+}
+
+.editorial-rule {
+  height: 1px;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  background: var(--line-soft);
 }
 
-/* Floating Background Text */
-.floating-bg-text {
+.snapshot {
+  position: relative;
+  overflow: hidden;
+  border: 8px solid white;
+  border-radius: var(--r-md);
+  background: white;
+  box-shadow: var(--shadow-lift);
+}
+
+.snapshot img {
+  display: block;
+}
+
+.snapshot--left {
+  transform: rotate(-1deg);
+}
+
+.snapshot--right {
+  transform: rotate(1.4deg);
+}
+
+.link-stroke {
+  position: relative;
+  min-height: 44px;
+  align-items: center;
+  color: var(--pink-deep);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.link-stroke::after {
+  content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 20vw;
-  font-weight: 900;
-  color: rgba(251, 111, 146, 0.05);
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 0;
-  text-transform: uppercase;
-  letter-spacing: -0.05em;
+  left: 0;
+  right: 0;
+  bottom: -0.15rem;
+  height: 0.18rem;
+  border-radius: 999px;
+  background: var(--pink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
 }
 
-/* Smooth Image Reveal */
-.image-reveal {
-  mask-image: linear-gradient(to bottom, black 0%, black 100%);
-  mask-size: 100% 0%;
-  mask-repeat: no-repeat;
-  transition: mask-size 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+.link-stroke:hover::after,
+.link-stroke:focus-visible::after {
+  transform: scaleX(1);
 }
 
-.image-reveal.active {
-  mask-size: 100% 100%;
+.cta-pattern {
+  background: var(--pink);
 }
 
-/* Horizontal Scroll Marquee */
+.mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
@@ -97,18 +258,88 @@ body {
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 40s linear infinite;
+  animation: marquee 60s linear infinite;
+}
+
+.animate-marquee[data-direction="reverse"] {
+  animation-direction: reverse;
 }
 
 .animate-marquee:hover {
   animation-play-state: paused;
 }
 
-/* Glassmorphism for Navbar - Dynamic Island Style */
-.nav-island {
-  background: rgba(255, 252, 253, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(251, 111, 146, 0.1);
-  box-shadow: var(--shadow-soft);
+.focus-ring {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--pink-deep);
+  outline-offset: 3px;
+}
+
+/* In-flow hero at the top of the page. The provided frames already include
+   #fff0f5 as the full scene background, so the section must match exactly. */
+.hhe-intro {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #fff0f5;
+  isolation: isolate;
+}
+
+/* Centred artwork — uses the padded 1600x1200 safe frames so stars, flowers,
+   and the book always have breathing room on mobile and desktop. */
+.hhe-intro__art {
+  position: relative;
+  z-index: 1;
+  width: min(90vw, calc(68dvh * 4 / 3), 58rem);
+  aspect-ratio: 4 / 3;
+  will-change: transform;
+}
+
+.hhe-intro__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: opacity 0.26s linear;
+  will-change: opacity;
+}
+
+@media (max-width: 640px) {
+  .hhe-intro__art {
+    width: min(88vw, calc(60dvh * 4 / 3));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .animate-marquee {
+    animation: none !important;
+  }
+
+  .hhe-intro__float {
+    display: none;
+  }
+
 }

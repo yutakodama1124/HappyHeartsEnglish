@@ -15,10 +15,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ className, variant = "primary", size = "md", isLoading, children, ...props }, ref) => {
 
         const variants = {
-            primary: "bg-[#fb6f92] text-white hover:bg-[#e25578] shadow-sm hover:shadow-md",
-            secondary: "bg-[#ffe4e9] text-[#fb6f92] hover:bg-[#ffb7c5] hover:text-white shadow-sm",
-            outline: "border-2 border-[#fb6f92] text-[#fb6f92] hover:bg-[#fff0f5] bg-transparent",
-            ghost: "text-[#fb6f92] hover:bg-[#fff0f5] shadow-none",
+            primary: "bg-[var(--pink)] text-white hover:bg-[var(--pink-deep)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)]",
+            secondary: "bg-white text-[var(--pink-deep)] hover:bg-[var(--paper)] shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-lift)]",
+            outline: "border border-[var(--pink-deep)] text-[var(--pink-deep)] hover:bg-white bg-transparent",
+            ghost: "text-[var(--pink-deep)] hover:bg-white shadow-none",
         };
 
         const sizes = {
@@ -32,7 +32,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 ref={ref}
                 whileTap={{ scale: 0.98 }}
                 className={cn(
-                    "relative inline-flex items-center justify-center font-bold tracking-wide transition-all",
+                    "relative inline-flex min-h-11 touch-manipulation items-center justify-center font-bold tracking-wide transition-[background-color,border-color,color,box-shadow,transform,opacity] duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--paper)] disabled:pointer-events-none",
                     variants[variant],
                     sizes[size],
                     isLoading && "opacity-70 cursor-not-allowed",

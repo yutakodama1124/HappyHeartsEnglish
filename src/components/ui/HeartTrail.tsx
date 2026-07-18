@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 interface Heart {
     id: number;
@@ -11,13 +11,26 @@ interface Heart {
 
 export const HeartTrail = () => {
     const [hearts, setHearts] = useState<Heart[]>([]);
+    const [enabled, setEnabled] = useState(false);
+    const reduceMotion = useReducedMotion();
 
     const addHeart = useCallback((x: number, y: number) => {
         const id = Date.now();
-        setHearts((prev) => [...prev.slice(-15), { id, x, y }]);
+        setHearts((prev) => [...prev.slice(-11), { id, x, y }]);
     }, []);
 
     useEffect(() => {
+        const mediaQuery = window.matchMedia("(pointer: fine)");
+        const update = () => setEnabled(mediaQuery.matches && !reduceMotion);
+
+        update();
+        mediaQuery.addEventListener("change", update);
+        return () => mediaQuery.removeEventListener("change", update);
+    }, [reduceMotion]);
+
+    useEffect(() => {
+        if (!enabled) return;
+
         const handleMouseMove = (e: MouseEvent) => {
             // Throttle heart creation
             if (Math.random() > 0.8) {
@@ -27,15 +40,24 @@ export const HeartTrail = () => {
 
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, [addHeart]);
+    }, [addHeart, enabled]);
 
     useEffect(() => {
+        if (!enabled) {
+            setHearts([]);
+            return;
+        }
+
         // Cleanup old hearts
         const timer = setInterval(() => {
             setHearts((prev) => prev.filter((h) => Date.now() - h.id < 800));
         }, 100);
         return () => clearInterval(timer);
-    }, []);
+    }, [enabled]);
+
+    if (!enabled) {
+        return null;
+    }
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[9999] overflow-hidden">
@@ -52,7 +74,7 @@ export const HeartTrail = () => {
                         }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="absolute text-[#fb6f92]/40"
+                        className="absolute text-[var(--pink)]/40"
                     >
                         <svg
                             width="20"

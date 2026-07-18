@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { M_PLUS_Rounded_1c } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
@@ -8,16 +8,10 @@ import { HeartTrail } from "@/components/ui/HeartTrail";
 import { googleSiteVerification, happyHeartsJsonLd, siteConfig } from "@/lib/site";
 import "./globals.css";
 
-const mPlus = M_PLUS_Rounded_1c({
-  weight: ["400", "500", "700", "800"],
-  subsets: ["latin"],
-  variable: "--font-rounded"
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | 英語ボランティア団体`,
+    default: "Happy Hearts English｜文京区の子ども向け英語ボランティア団体",
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -34,7 +28,7 @@ export const metadata: Metadata = {
     google: googleSiteVerification,
   },
   openGraph: {
-    title: `${siteConfig.name} | 英語ボランティア団体`,
+    title: "Happy Hearts English｜文京区の子ども向け英語ボランティア団体",
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
@@ -51,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} | 英語ボランティア団体`,
+    title: "Happy Hearts English｜文京区の子ども向け英語ボランティア団体",
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },
@@ -75,11 +69,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={mPlus.className}>
+      <body>
+        <a className="skip-link" href="#main-content">
+          本文へスキップ
+        </a>
         <HeartTrail />
         <SmoothScroll>
           <Navbar />
-          <main className="min-h-screen">
+          <main id="main-content" tabIndex={-1} className="min-h-screen pt-24">
             {children}
           </main>
           <Footer />
@@ -91,6 +88,7 @@ export default function RootLayout({
           }}
         />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

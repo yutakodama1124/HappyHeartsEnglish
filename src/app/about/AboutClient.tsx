@@ -1,193 +1,230 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { Quote } from "lucide-react";
 import { CloudImage } from "@/components/ui/CloudImage";
 import { Section } from "@/components/ui/Section";
+import { CrayonTitle } from "@/components/ui/CrayonTitle";
 import Image from "next/image";
+import { buildBreadcrumbJsonLd } from "@/lib/site";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function AboutClient() {
+  const reduceMotion = useReducedMotion();
+
   const leadership = [
-    {
-      name: "Yuuken Miura",
-      role: "Founder / 共同代表",
-      image: "/images/Yuuken.jpg",
-    },
-    {
-      name: "Shunya Glover",
-      role: "Co-Founder / 共同代表",
-      image: "/images/Shunya.jpg",
-    },
-    {
-      name: "Wataru Kawaguchi",
-      role: "Co-Founder / 共同代表",
-      image: "/images/Wataru.jpg",
-    },
-    {
-      name: "Yuta Kodama",
-      role: "Co-Founder / 共同代表",
-      image: "/images/Yuta.png",
-    },
+    { name: "Yuuken Miura", role: "Co-Founder / 共同代表", image: "/images/Yuuken.jpg" },
+    { name: "Shunya Glover", role: "Co-Founder / 共同代表", image: "/images/Shunya.png" },
+    { name: "Wataru Kawaguchi", role: "Co-Founder / 共同代表", image: "/images/Wataru.png" },
+    { name: "Yuta Kodama", role: "Co-Founder / 共同代表", image: "/images/Yuta.png" },
   ];
 
   const members = [
     "Saku Yamaguchi", "Tomo Kyokukawa", "Rion Nakata", "Ai Koike",
     "Asaki Hashimoto", "Keita Kojima", "Haru Fujimori", "Aodhnait Bolduan",
-    "Gihan Madegedara", "Rio Ogoshi", "Naohisa Matsudaira", "Lily Kikuchi",
-    "Manano Ichikawa", "Rion Mizumoto", "Yuika Osada", "Juha Kikuchi",
-    "Akinari Kimura", "Taku Tsunoda"
+    "Gihan Madegedara", "Rio Ogoshi", "Naohisa Matsudaira", "Juha Kikuchi",
+    "Akinari Kimura", "Taku Tsunoda", "Kirin Inoue", "Hana Ishihara",
+    "Sora Inoue", "Lisa Yoshida", "Kotaro Tagami", "Go Takao",
+    "Taiga Hoshiyama"
   ];
 
-  return (
-    <div className="bg-[#fff0f5]">
+  const memberRoles: Record<string, string> = {
+    "Saku Yamaguchi": "Picture Book Leader",
+    "Tomo Kyokukawa": "Children's Hall Leader",
+    "Rion Nakata": "Growth Team Leader",
+    "Ai Koike": "Social Media Leader",
+    "Asaki Hashimoto": "Activity Brainstorm Leader",
+    "Haru Fujimori": "Social Media Leader",
+    "Aodhnait Bolduan": "Activity Brainstorm Leader",
+    "Rio Ogoshi": "Outreach Team Leader",
+    "Naohisa Matsudaira": "Children's Hall Leader",
+    "Akinari Kimura": "Children's Hall Leader",
+    "Taku Tsunoda": "Children's Hall Leader",
+  };
 
-      {/* Hero Section */}
-      <Section bgText="STORY" accentText="Story / 01" className="pt-32 md:pt-60">
-        <div className="max-w-5xl">
-          <h1 className="text-5xl md:text-6xl lg:text-[10rem] font-black text-[#4a3b43] mb-8 md:mb-16 leading-[1.1] md:leading-[0.8] tracking-tighter">
-            Our<br />
-            <span className="text-[#fb6f92]">Identity.</span>
-          </h1>
-          <p className="text-2xl md:text-3xl text-[#4a3b43]/70 font-medium leading-[1.8] max-w-3xl">
-            私たちは、広尾学園小石川高校の生徒が立ち上げた<br />
-            英語を通して<span className="text-[#fb6f92]">「遊び × 学び」</span>の境界線をなくす<br />ボランティア団体です。
+  const principles = [
+    {
+      title: "英語を正解より先に、体験として届ける",
+      copy: "単語を覚えることだけを目的にせず、絵本、ゲーム、工作、会話の中で自然に英語に触れる時間をつくります。",
+    },
+    {
+      title: "高校生だからできる近さを活かす",
+      copy: "先生でも保護者でもない少し年上の存在として、子どもたちが緊張せず話しかけられる距離感を大切にしています。",
+    },
+    {
+      title: "地域と続けられる形で活動する",
+      copy: "児童館や教育団体と相談しながら、会場、年齢、人数、時間に合わせて無理なく続けられるプログラムを考えます。",
+    },
+  ];
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "ホーム", path: "/" },
+    { name: "団体について", path: "/about" },
+  ]);
+
+  return (
+    <div className="bg-[var(--background)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+
+      <Section>
+        <div className="max-w-4xl">
+          <CrayonTitle as="h1" className="display-title--hero mb-6">
+            わたしたちの物語
+          </CrayonTitle>
+          <p className="body-xl max-w-3xl">
+            広尾学園小石川高校の生徒たちが立ち上げた、
+            「遊び × 学び」の境界線をやわらかくほどく英語ボランティア団体です。
+          </p>
+          <p className="body-lg mt-6 max-w-3xl">
+            Happy Hearts Englishは、東京都文京区を中心に、子ども向け英語イベント、英語絵本制作、地域施設との連携を行っています。
+            活動メンバーは高校生で、企画、教材づくり、当日の進行、広報、外部連携までをチームで分担しています。
           </p>
         </div>
       </Section>
 
-      {/* Origin Narrative */}
-      <Section bg="pink" bgText="ORIGIN" accentText="Beginning / 02" className="py-32 md:py-60">
-        <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
-          <div className="relative aspect-[4/3] w-full max-w-xl mx-auto">
-            <CloudImage src="/images/HHEteamphoto.jpg" alt="Team" className="rounded-[2rem] md:rounded-[3rem]" />
-          </div>
+      <Section id="origin" bg="pink">
+        <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+          <CloudImage
+            src="/images/HHEteamphoto.jpg"
+            alt="Happy Hearts English のメンバー集合写真"
+            className="aspect-[4/3] max-w-xl"
+            sizes="(max-width: 768px) 100vw, 42vw"
+            priority
+          />
           <div>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black text-[#4a3b43] mb-8 md:mb-12 tracking-tighter">「もっと楽しく」<br />その一歩。</h2>
-            <div className="space-y-8 text-xl text-[#4a3b43]/70 font-medium leading-[2.2]">
+            <CrayonTitle className="mb-6">「もっと楽しく」から始まった一歩。</CrayonTitle>
+            <div className="space-y-6 text-lg leading-8 text-[var(--foreground)]/72">
               <p>
-                メンバーの多くが帰国子女として、言葉が通じた時の「心の温かさ」を知っています。
-                一方で、日本の教育では英語が「勉強」という壁になっている現状がありました。
+                多くのメンバーが、英語が通じたときのうれしさや、世界が広がる感覚を自分の経験として知っています。
               </p>
               <p>
-                私たちは、英語を身近な「ワクワク」に変え、子どもたちが自然に世界へと目を向けるきっかけを創るために活動しています。
+                一方で、英語が勉強として遠く感じられてしまう場面もたくさん見てきました。
+                だからこそ私たちは、英語にふれる最初の記憶を、もっとあたたかくしたいと考えています。
+              </p>
+              <p>
+                文京区の児童館や地域イベントで出会う子どもたちにとって、英語が「テストのためのもの」ではなく、
+                友だちと笑ったり、物語を聞いたり、体を動かしたりする時間の中にあるものになることを目指しています。
               </p>
             </div>
           </div>
         </div>
       </Section>
 
-      {/* Leadership - Clean Rectangular Grid */}
-      <Section bgText="TEAM" className="py-32 md:py-60">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-32 gap-6 md:gap-8">
-          <h2 className="text-4xl md:text-5xl lg:text-8xl font-black text-[#4a3b43] tracking-tighter">Leadership.</h2>
-          <p className="text-[#fb6f92] font-black text-sm md:text-lg">創設メンバー / 共同代表</p>
+      <Section bg="white">
+        <div className="mb-10 max-w-4xl">
+          <CrayonTitle>大切にしていること</CrayonTitle>
+          <p className="body-lg mt-6">
+            子ども向け英語ボランティアとして、私たちは「楽しい」だけで終わらない準備を大切にしています。
+            活動前には対象年齢や会場の雰囲気を確認し、言葉の難しさ、進行のテンポ、安全な動線、子どもたちが参加しやすい声かけを話し合います。
+          </p>
         </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {leadership.map((leader, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.8 }}
-              className="group"
-            >
-              <div className="relative aspect-[3/4] mb-8 overflow-hidden rounded-[2.5rem] bg-[#fff0f5] shadow-sm transform transition-transform duration-500 group-hover:-translate-y-2">
-                <Image
-                  src={leader.image}
-                  alt={leader.name}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#4a3b43]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute bottom-8 left-8 text-white translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-[10px] font-black tracking-[0.3em] uppercase opacity-70 mb-2">{leader.role}</p>
-                  <h3 className="text-2xl font-black">{leader.name}</h3>
-                </div>
-              </div>
-              <div className="text-center md:text-left px-2">
-                <h3 className="text-2xl font-black text-[#4a3b43] mb-1">{leader.name}</h3>
-                <p className="text-sm font-bold text-[#fb6f92] uppercase tracking-widest">{leader.role}</p>
-              </div>
-            </motion.div>
+        <div className="grid gap-5 lg:grid-cols-3">
+          {principles.map((principle) => (
+            <article key={principle.title} className="surface-card p-7">
+              <h3 className="title-h3 text-[var(--ink)]">{principle.title}</h3>
+              <p className="mt-5 text-base leading-8 text-[var(--ink)]/72">{principle.copy}</p>
+            </article>
           ))}
         </div>
       </Section>
 
-      {/* Founder's Message - HEARTFELT BLOCK */}
-      <Section className="py-32 md:py-60 bg-[#fff0f5]" bgText="MESSAGE">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-[#fff0f5] p-8 md:p-12 lg:p-24 rounded-[3rem] md:rounded-[5rem] relative shadow-xl md:shadow-2xl border border-[#fb6f92]/20"
-          >
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-black text-[#4a3b43] mb-8 md:mb-12 tracking-tighter leading-tight">
-              一人一人の笑顔が、<br />
-              私たちの原動力です。
-            </h2>
+      <Section>
+        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <CrayonTitle>創設メンバー / 共同代表</CrayonTitle>
+          </div>
+          <p className="body-lg max-w-md">英語を届ける前に、まず自分たちが楽しんで学ぶことを大切にしています。</p>
+        </div>
 
-            <div className="space-y-10 text-xl text-[#4a3b43]/80 font-medium leading-[2.2]">
-              <p>
-                英語は単なる「言語」ではなく、新しい世界、新しい友だち、
-                そして自分自身の新しい可能性と出会うための「チケット」だと信じています。
-              </p>
-              <p>
-                Happy Hearts Englishは、遊びを通して英語への心理的ハードルを下げ、
-                子どもたちが「もっと知りたい！」と自ら言いたくなる環境作りを大切にしてきました。
-              </p>
-              <p>
-                代表、そしてメンバー一同、一冊の絵本、一つのイベントを通してお届けするのは
-                英語そのものだけでなく、そこから生まれる「自信」と「ワクワク」です。
-              </p>
-            </div>
-
-            <div className="mt-20 pt-16 border-t border-[#4a3b43]/10 flex flex-col md:flex-row justify-between items-end gap-10">
-              <div>
-                <p className="text-[#fb6f92] font-black text-xs tracking-[0.4em] uppercase mb-4">Representatives Message</p>
-                <h3 className="text-3xl font-black text-[#4a3b43]">共同代表一同</h3>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          variants={staggerContainer()}
+          className="grid gap-6 md:grid-cols-2 xl:grid-cols-4"
+        >
+          {leadership.map((leader, index) => (
+            <motion.article key={leader.name} variants={fadeUp(index * 0.06)} className="surface-card overflow-hidden p-4 transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+              <motion.div
+                whileHover={reduceMotion ? undefined : { rotate: 1.4, y: -4 }}
+                transition={{ duration: 0.4 }}
+                className="relative aspect-[3/4] overflow-hidden rounded-[calc(var(--radius-lg)-0.5rem)]"
+              >
+                <Image
+                  src={leader.image}
+                  alt={leader.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-500 hover:scale-[1.03]"
+                />
+              </motion.div>
+              <div className="px-2 pb-2 pt-5">
+                <h3 className="mt-2 text-2xl font-black text-[var(--foreground)]">{leader.name}</h3>
+                <p className="mt-2 text-sm font-medium text-[var(--ink)]/68">{leader.role}</p>
               </div>
-              <div className="text-right">
-                <p className="font-black italic text-2xl text-[#fb6f92]/40 tracking-tighter cursor-default select-none">
-                  English as a bridge to heart.
+            </motion.article>
+          ))}
+        </motion.div>
+      </Section>
+
+      <Section bg="white">
+        <div className="mx-auto max-w-4xl">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-15%" }}
+            variants={fadeUp()}
+            className="surface-card relative p-8 md:p-12"
+          >
+            <Quote className="absolute left-8 top-8 text-[var(--pink)]" size={64} />
+            <div className="pl-8 md:pl-12">
+              <CrayonTitle className="mb-6">一人ひとりの笑顔が、私たちの原動力です。</CrayonTitle>
+              <div className="space-y-6 text-lg leading-8 text-[var(--foreground)]/76">
+                <p>
+                  英語は単なる言語ではなく、新しい世界や友だち、自分の可能性に出会うためのチケットだと信じています。
                 </p>
+                <p>
+                  Happy Hearts Englishは、遊びを通して英語への心理的ハードルを下げ、
+                  「もっと知りたい」と自然に思える環境を大切に育ててきました。
+                </p>
+                <p>
+                  届けたいのは英語そのものだけではなく、そこから生まれる自信とワクワクです。
+                </p>
+              </div>
+              <div className="mt-10 border-t border-[var(--line-soft)] pt-8">
+                <p className="mt-2 text-2xl font-black text-[var(--foreground)]">共同代表一同</p>
               </div>
             </div>
           </motion.div>
         </div>
       </Section>
 
-      {/* Members List - Clean, Non-shabby Ticker/Grid */}
-      <section className="py-32 md:py-60 px-6 bg-[#fff0f5] relative overflow-hidden">
-        <div className="floating-bg-text opacity-[0.03]">MEMBERS</div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex items-center gap-10 mb-16 md:mb-32">
-            <h2 className="text-4xl md:text-5xl font-black text-[#4a3b43] tracking-tighter underline decoration-[#fb6f92]/20 underline-offset-[4px] md:underline-offset-8">Our Family.</h2>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-12 gap-y-20">
-            {members.map((name, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: (i % 4) * 0.1 }}
-                className="group cursor-default"
-              >
-                <div className="flex items-baseline gap-4 mb-4">
-                  <span className="text-[10px] font-black text-[#fb6f92] opacity-40">{String(i + 1).padStart(2, '0')}</span>
-                  <h4 className="text-2xl font-black text-[#4a3b43] group-hover:text-[#fb6f92] transition-colors leading-none">
-                    {name}
-                  </h4>
-                </div>
-                <div className="h-0.5 w-0 group-hover:w-full bg-[#fb6f92]/20 transition-all duration-500" />
-              </motion.div>
-            ))}
+      <Section>
+        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <CrayonTitle>なかまたち</CrayonTitle>
           </div>
         </div>
-      </section>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          variants={staggerContainer(0.06)}
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        >
+          {members.map((name, index) => (
+            <motion.div key={name} variants={fadeUp((index % 4) * 0.04)} className="soft-panel px-5 py-5">
+              <div>
+                <h3 className="text-xl font-black text-[var(--foreground)]">{name}</h3>
+                {memberRoles[name] && (
+                  <p className="mt-2 text-sm leading-6 text-[var(--ink)]/64">{memberRoles[name]}</p>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </Section>
     </div>
   );
 }

@@ -5,109 +5,149 @@ import Link from "next/link";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Calendar, ArrowRight } from "lucide-react";
+import { YouTubeFacade } from "@/components/ui/YouTubeFacade";
+import { CrayonTitle } from "@/components/ui/CrayonTitle";
+import { buildBreadcrumbJsonLd, buildNewsArticleJsonLd } from "@/lib/site";
 
 export default function NewsClient() {
   const newsItems = [
     {
       id: "tv-feature-fumikomu",
-      date: "2026.04.09",
+      date: "2026-04-09",
+      dateLabel: "2026.04.09",
       category: "Media",
       title: "「あらぶんちょ!チャンネル」で私たちの活動が紹介されました！",
-      media: (
-        <div className="relative aspect-video w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-xl md:shadow-2xl mb-12 md:mb-16 border-[8px] md:border-[12px] border-white bg-white">
-          <iframe 
-            className="w-full h-full"
-            src="https://www.youtube.com/embed/vsN2aTPiTTA" 
-            title="YouTube video player" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowFullScreen
-          ></iframe>
-        </div>
-      ),
+      description:
+        "文京区の地域ネットワーク番組「あらぶんちょ!チャンネル」にて、Happy Hearts English が参加した地域イベントと子ども向け英語ボランティア活動の様子が紹介されました。",
+      media: <YouTubeFacade videoId="vsN2aTPiTTA" title="あらぶんちょ!チャンネルで紹介されたHappy Hearts Englishの活動" />,
       content: (
         <>
-          <p className="mb-8 md:mb-10 text-lg md:text-xl text-[#4a3b43]">
-            文京区の地域ネットワーク番組「あらぶんちょ!チャンネル」の『イイコト!SDGs!!』にて、私たちが参加した「ふみこむフェスタ」の様子が放送されました。
+          <p className="mb-6 text-lg leading-8 text-[var(--foreground)]/74">
+            文京区の地域ネットワーク番組「あらぶんちょ!チャンネル」の『イイコト!SDGs!!』にて、
+            私たちが参加した「ふみこむフェスタ」の様子が放送されました。
           </p>
-          <p>
-            イベントでの子どもたちとの触れ合いや、私たちが大切にしている「遊び×学び」の空間づくりについて取材していただいています。ぜひ動画でご覧ください！
+          <p className="text-lg leading-8 text-[var(--foreground)]/74">
+            子どもたちとのふれあいや、「遊び × 学び」の空間づくりについて取材していただいています。ぜひ動画でご覧ください。
+          </p>
+          <p className="mt-6 text-lg leading-8 text-[var(--foreground)]/74">
+            Happy Hearts Englishでは、文京区の子どもたちが英語を身近に感じられるよう、英語絵本の読み聞かせやゲーム形式のアクティビティを行っています。
+            地域番組で紹介いただいたことをきっかけに、より多くの施設や団体と連携し、英語にふれる入口を広げていきます。
           </p>
         </>
-      )
+      ),
     },
     {
       id: "website-launch",
-      date: "2025.11.01",
+      date: "2025-11-01",
+      dateLabel: "2025.11.01",
       category: "Release",
       title: "Websiteを公開しました！",
+      description:
+        "Happy Hearts English の公式ウェブサイトを公開し、活動報告やイベント案内を発信する準備が整いました。",
       media: (
-        <div className="relative aspect-video w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-xl md:shadow-2xl mb-12 md:mb-16 border-[8px] md:border-[12px] border-white bg-white">
+        <div className="relative aspect-video overflow-hidden rounded-[var(--radius-lg)] border border-white/70 bg-white shadow-[var(--shadow-card)]">
           <Image
             src="/images/HHEWEBSITE.png"
-            alt="Website Launch"
+            alt="Happy Hearts English の公式サイト公開イメージ"
             fill
+            sizes="(max-width: 768px) 100vw, 896px"
             className="object-cover"
           />
         </div>
       ),
       content: (
         <>
-          <p className="mb-8 md:mb-10 text-lg md:text-xl text-[#4a3b43]">
+          <p className="mb-6 text-lg leading-8 text-[var(--foreground)]/74">
             この度、Happy Hearts Englishの公式ウェブサイトを公開しました。
           </p>
-          <div className="bg-[#fff0f5] p-10 rounded-[3rem] my-12 border border-[#fb6f92]/5 relative">
-            <p className="text-sm font-black text-[#fb6f92] mb-4 uppercase tracking-[0.3em] opacity-40">Student Project</p>
-            <p className="text-lg">
-              作成してくれたのは、私たちの団体メンバーである広尾学園小石川高校の学生です。
-              彼らの情熱と努力により、私たちの想いが詰まったサイトが完成しました。
+          <div className="soft-panel my-8 rounded-[var(--radius-md)] p-6">
+            <p className="mt-3 text-lg leading-8 text-[var(--foreground)]/74">
+              作成してくれたのは、団体メンバーである広尾学園小石川高校の学生たちです。
+              彼らの情熱と努力によって、私たちの想いが伝わる場所が形になりました。
             </p>
           </div>
-          <p>
-            今後はこのサイトを通じて、活動報告やイベント案内、ボランティア募集情報などを定期的に発信していきます。
-            ぜひブックマークして、私たちの歩みをチェックしてください。
+          <p className="text-lg leading-8 text-[var(--foreground)]/74">
+            今後はこのサイトを通じて、活動報告やイベント案内、ボランティア募集情報を定期的に発信していきます。
+          </p>
+          <p className="mt-6 text-lg leading-8 text-[var(--foreground)]/74">
+            児童館での英語イベント、手づくり英語絵本、地域団体との連携、学生メンバーの活動記録などを残すことで、
+            Happy Hearts Englishを初めて知った方にも、私たちがどんな思いで活動しているか伝わる場所にしていきます。
           </p>
         </>
-      )
-    }
+      ),
+    },
   ];
 
-  return (
-    <div className="bg-[#fffcfd]">
-      <Section accentText="Journal / 01" className="pt-32 md:pt-40">
-        <Link href="/">
-          <Button variant="ghost" size="sm" className="mb-12 pl-0 hover:pl-2 transition-all text-[#4a3b43]/40">
-            ← Back to Journey
-          </Button>
-        </Link>
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "ホーム", path: "/" },
+    { name: "ニュース", path: "/news" },
+  ]);
 
-        <div className="space-y-32">
+  const newsJsonLd = newsItems.map((item) =>
+    buildNewsArticleJsonLd({
+      title: item.title,
+      description: item.description,
+      path: `/news#${item.id}`,
+      datePublished: item.date,
+      image: item.id === "website-launch" ? "/images/HHEWEBSITE.png" : undefined,
+    })
+  );
+
+  return (
+    <div className="bg-[var(--paper)]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(newsJsonLd) }} />
+
+      <Section>
+        <div className="mb-12">
+          <Link href="/">
+            <Button variant="ghost" size="sm" className="pl-0 text-[var(--ink)]/60 hover:bg-transparent">
+              ← Back to Home
+            </Button>
+          </Link>
+        </div>
+
+        <div className="mx-auto mb-12 max-w-5xl">
+          <CrayonTitle as="h1" className="display-title--hero">
+            お知らせと活動報告
+          </CrayonTitle>
+          <p className="body-lg mt-6 max-w-3xl">
+            Happy Hearts Englishのメディア掲載、公式サイト更新、文京区での子ども向け英語イベント、英語絵本づくり、
+            地域連携に関する活動報告を掲載しています。
+          </p>
+        </div>
+
+        <div className="space-y-12">
           {newsItems.map((item) => (
-            <article key={item.id} className="max-w-4xl mx-auto border-b border-[#4a3b43]/5 pb-32 last:border-0">
+            <article
+              key={item.id}
+              id={item.id}
+              className="surface-card mx-auto max-w-5xl overflow-hidden p-6 md:p-8"
+            >
               {item.media}
 
-              <div className="relative">
-                <div className="flex items-center gap-4 mb-8">
-                  <Calendar size={18} className="text-[#fb6f92]" />
-                  <span className="text-sm font-black text-[#fb6f92] tracking-widest">{item.date}</span>
-                  <div className="h-px w-12 bg-[#fb6f92]/20" />
-                  <span className="text-[10px] font-black uppercase text-[#4a3b43]/30 tracking-[0.2em]">{item.category}</span>
+              <div className="mt-8">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="flex items-center gap-2 text-sm font-black tracking-[0.16em] text-[var(--pink-deep)]">
+                    <Calendar size={16} />
+                    {item.dateLabel}
+                  </span>
                 </div>
 
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#4a3b43] mb-8 md:mb-12 leading-tight tracking-tighter">
+                <h2 className="display-title mt-5 text-[var(--ink)]">
                   {item.title}
-                </h1>
+                </h2>
+                <p className="mt-4 text-lg leading-8 text-[var(--ink)]/72">{item.description}</p>
 
-                <div className="prose prose-pink prose-base md:prose-lg max-w-none text-[#4a3b43]/70 font-medium leading-loose">
-                  {item.content}
-                </div>
+                <div className="mt-6">{item.content}</div>
               </div>
             </article>
           ))}
         </div>
 
-        <div className="mt-16 pt-16 border-t border-[#4a3b43]/5 flex justify-center max-w-4xl mx-auto">
+        <div className="mx-auto mt-14 flex max-w-5xl justify-center border-t border-[var(--line-soft)] pt-12">
           <Link href="/contact">
-            <Button variant="primary" size="lg" className="px-12">
+            <Button size="lg" className="px-10">
               お問い合わせ <ArrowRight className="ml-3" size={20} />
             </Button>
           </Link>
