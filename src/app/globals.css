@@ -314,6 +314,155 @@ img {
   will-change: opacity;
 }
 
+.love-burst {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(255, 255, 255, 0.94), rgba(255, 240, 245, 0.92) 48%, rgba(226, 85, 120, 0.24)),
+    rgba(74, 59, 67, 0.22);
+  backdrop-filter: blur(12px);
+}
+
+.love-burst__stage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(8rem, 18rem) clamp(4rem, 10vw, 7rem) minmax(8rem, 18rem);
+  align-items: center;
+  gap: clamp(0.8rem, 3vw, 2rem);
+  padding: clamp(1rem, 4vw, 2rem);
+}
+
+.love-burst__photo {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 0.55rem solid white;
+  border-radius: var(--r-lg);
+  background: white;
+  box-shadow: 0 24px 70px rgba(74, 59, 67, 0.22);
+}
+
+.love-burst__photo--left {
+  transform: rotate(-5deg);
+}
+
+.love-burst__photo--right {
+  transform: rotate(5deg);
+}
+
+.love-burst__heart-wrap {
+  position: relative;
+  width: clamp(3.1rem, 7vw, 5.6rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  box-shadow:
+    0 0 0 0.7rem rgba(255, 255, 255, 0.72),
+    0 18px 40px rgba(226, 85, 120, 0.24);
+}
+
+.love-burst__heart {
+  position: relative;
+  width: 72%;
+  aspect-ratio: 1;
+  background:
+    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.48) 0 7%, transparent 8%),
+    var(--pink);
+  border-radius: 0.35rem;
+  transform: rotate(45deg);
+}
+
+.love-burst__heart::before,
+.love-burst__heart::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.love-burst__heart::before {
+  left: -50%;
+  top: 0;
+}
+
+.love-burst__heart::after {
+  left: 0;
+  top: -50%;
+}
+
+.love-burst__rain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.love-burst__drop {
+  position: absolute;
+  top: 0;
+  color: var(--pink-deep);
+  font-size: clamp(1.1rem, 2.4vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 0 white, 0 10px 28px rgba(226, 85, 120, 0.24);
+}
+
+.love-burst__mini-photo {
+  width: clamp(3.5rem, 8vw, 6.5rem);
+  height: auto;
+  border: 0.25rem solid white;
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lift);
+}
+
+.love-burst__close {
+  position: absolute;
+  left: 50%;
+  bottom: -3.4rem;
+  min-height: 2.8rem;
+  min-width: 5.8rem;
+  transform: translateX(-50%);
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  background: white;
+  color: var(--pink-deep);
+  font: inherit;
+  font-weight: 800;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .love-burst__stage {
+    grid-template-columns: 1fr;
+    width: min(92vw, 24rem);
+    gap: 0.25rem;
+  }
+
+  .love-burst__photo {
+    width: min(66vw, 14rem);
+    margin-inline: auto;
+  }
+
+  .love-burst__heart-wrap {
+    width: 3.6rem;
+    margin-block: -0.4rem;
+  }
+
+  .love-burst__close {
+    bottom: -3rem;
+  }
+}
+
 @media (max-width: 640px) {
   .hhe-intro__art {
     width: min(88vw, calc(60dvh * 4 / 3));

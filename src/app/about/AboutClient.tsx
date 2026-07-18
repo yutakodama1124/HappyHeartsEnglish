@@ -1,16 +1,19 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { CloudImage } from "@/components/ui/CloudImage";
 import { Section } from "@/components/ui/Section";
 import { CrayonTitle } from "@/components/ui/CrayonTitle";
 import Image from "next/image";
+import { useState } from "react";
 import { buildBreadcrumbJsonLd } from "@/lib/site";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function AboutClient() {
   const reduceMotion = useReducedMotion();
+  const [, setEasterClicks] = useState({ yuuken: false, ai: false });
+  const [showLoveBurst, setShowLoveBurst] = useState(false);
 
   const leadership = [
     { name: "Yuuken Miura", role: "Co-Founder / 共同代表", image: "/images/Yuuken.jpg" },
@@ -62,9 +65,116 @@ export default function AboutClient() {
     { name: "団体について", path: "/about" },
   ]);
 
+  const triggerLoveBurst = (target: "yuuken" | "ai") => {
+    setEasterClicks((current) => {
+      const next = { ...current, [target]: true };
+      if (next.yuuken && next.ai) {
+        setShowLoveBurst(true);
+      }
+      return next;
+    });
+  };
+
+  const loveRain = Array.from({ length: 22 }, (_, index) => ({
+    id: index,
+    left: (index * 17) % 96,
+    delay: (index % 8) * 0.12,
+    duration: 2.8 + (index % 5) * 0.22,
+    rotate: index % 2 === 0 ? -16 : 18,
+    label: index % 3 === 0 ? "LOVE" : index % 3 === 1 ? "Ai" : "Yuuken",
+  }));
+
   return (
     <div className="bg-[var(--background)]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <AnimatePresence>
+        {showLoveBurst && (
+          <motion.div
+            className="love-burst"
+            role="dialog"
+            aria-label="Secret love animation"
+            aria-modal="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.28 }}
+            onClick={() => setShowLoveBurst(false)}
+          >
+            <div className="love-burst__rain" aria-hidden="true">
+              {loveRain.map((item) => (
+                <motion.div
+                  key={item.id}
+                  className="love-burst__drop"
+                  style={{ left: `${item.left}%` }}
+                  initial={{ y: "-22vh", opacity: 0, rotate: item.rotate }}
+                  animate={{ y: "116vh", opacity: [0, 1, 1, 0], rotate: item.rotate * -1 }}
+                  transition={{
+                    duration: reduceMotion ? 0.01 : item.duration,
+                    delay: reduceMotion ? 0 : item.delay,
+                    repeat: reduceMotion ? 0 : Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  {item.id % 4 === 0 ? (
+                    <Image
+                      src="/images/easter-love.png"
+                      alt=""
+                      width={104}
+                      height={156}
+                      className="love-burst__mini-photo"
+                    />
+                  ) : (
+                    <span>{item.label}</span>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div
+              className="love-burst__stage"
+              initial={reduceMotion ? false : { y: 26, scale: 0.96, opacity: 0 }}
+              animate={{ y: 0, scale: 1, opacity: 1 }}
+              exit={{ y: 12, scale: 0.98, opacity: 0 }}
+              transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="love-burst__photo love-burst__photo--left">
+                <Image
+                  src="/images/easter-yuuken.png"
+                  alt="Yuuken secret photo"
+                  fill
+                  sizes="(max-width: 768px) 38vw, 22rem"
+                  className="object-cover"
+                />
+              </div>
+              <motion.div
+                className="love-burst__heart-wrap"
+                aria-hidden="true"
+                animate={reduceMotion ? undefined : { scale: [1, 1.14, 1], rotate: [-5, 5, -5] }}
+                transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <div className="love-burst__heart" />
+              </motion.div>
+              <div className="love-burst__photo love-burst__photo--right">
+                <Image
+                  src="/images/easter-ai.png"
+                  alt="Ai secret photo"
+                  fill
+                  sizes="(max-width: 768px) 38vw, 22rem"
+                  className="object-cover"
+                />
+              </div>
+              <button
+                type="button"
+                className="love-burst__close"
+                onClick={() => setShowLoveBurst(false)}
+              >
+                close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Section>
         <div className="max-w-4xl">
@@ -144,7 +254,26 @@ export default function AboutClient() {
           className="grid gap-6 md:grid-cols-2 xl:grid-cols-4"
         >
           {leadership.map((leader, index) => (
-            <motion.article key={leader.name} variants={fadeUp(index * 0.06)} className="surface-card overflow-hidden p-4 transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+            <motion.article
+              key={leader.name}
+              variants={fadeUp(index * 0.06)}
+              role={leader.name === "Yuuken Miura" ? "button" : undefined}
+              tabIndex={leader.name === "Yuuken Miura" ? 0 : undefined}
+              onClick={leader.name === "Yuuken Miura" ? () => triggerLoveBurst("yuuken") : undefined}
+              onKeyDown={
+                leader.name === "Yuuken Miura"
+                  ? (event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        triggerLoveBurst("yuuken");
+                      }
+                    }
+                  : undefined
+              }
+              className={`surface-card overflow-hidden p-4 transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] ${
+                leader.name === "Yuuken Miura" ? "cursor-pointer focus-ring" : ""
+              }`}
+            >
               <motion.div
                 whileHover={reduceMotion ? undefined : { rotate: 1.4, y: -4 }}
                 transition={{ duration: 0.4 }}
@@ -214,7 +343,26 @@ export default function AboutClient() {
           className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
           {members.map((name, index) => (
-            <motion.div key={name} variants={fadeUp((index % 4) * 0.04)} className="soft-panel px-5 py-5">
+            <motion.div
+              key={name}
+              variants={fadeUp((index % 4) * 0.04)}
+              role={name === "Ai Koike" ? "button" : undefined}
+              tabIndex={name === "Ai Koike" ? 0 : undefined}
+              onClick={name === "Ai Koike" ? () => triggerLoveBurst("ai") : undefined}
+              onKeyDown={
+                name === "Ai Koike"
+                  ? (event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        triggerLoveBurst("ai");
+                      }
+                    }
+                  : undefined
+              }
+              className={`soft-panel px-5 py-5 ${
+                name === "Ai Koike" ? "cursor-pointer transition-transform hover:-translate-y-0.5 focus-ring" : ""
+              }`}
+            >
               <div>
                 <h3 className="text-xl font-black text-[var(--foreground)]">{name}</h3>
                 {memberRoles[name] && (
