@@ -87,13 +87,13 @@ export default function ActivitiesClient() {
         </div>
       </Section>
 
-      <div className="pb-24 md:pb-32">
+      <div className="pb-16 md:pb-32">
         {activities.map((activity, index) => (
           <Section
             key={activity.title}
             bg={index % 2 === 0 ? "pink" : "white"}
           >
-            <div className="grid items-center gap-10 lg:grid-cols-2">
+            <div className="grid items-center gap-7 md:gap-10 lg:grid-cols-2">
               <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -101,21 +101,21 @@ export default function ActivitiesClient() {
                 variants={fadeUp()}
                 className={index % 2 === 1 ? "lg:order-2" : ""}
               >
-                <CrayonTitle className="mb-5">{activity.title}</CrayonTitle>
-                <p className="text-lg leading-8 text-[var(--foreground)]/72">{activity.desc}</p>
-                <ul className="mt-6 space-y-3 text-base leading-7 text-[var(--ink)]/72">
+                <CrayonTitle className="mb-4 md:mb-5">{activity.title}</CrayonTitle>
+                <p className="text-base leading-7 text-[var(--foreground)]/72 sm:text-lg sm:leading-8">{activity.desc}</p>
+                <ul className="mt-5 space-y-3 text-[0.96rem] leading-7 text-[var(--ink)]/72 sm:mt-6 sm:text-base">
                   {activity.points.map((point) => (
                     <li key={point} className="border-l-2 border-[var(--pink)] pl-4">
                       {point}
                     </li>
                   ))}
                 </ul>
-                <div className="relative mt-8 rounded-[var(--r-md)] border border-[var(--line-soft)] bg-[var(--blush)] p-7 shadow-[var(--shadow-card)]">
-                  <span className="absolute -left-2 top-8 h-5 w-5 rotate-45 border-b border-r border-[var(--line-soft)] bg-[var(--blush)]" />
-                  <span className="mb-5 grid h-11 w-11 place-items-center rounded-full bg-white text-sm font-black text-[var(--pink-deep)]">
+                <div className="relative mt-6 rounded-[var(--r-md)] border border-[var(--line-soft)] bg-[var(--blush)] p-5 shadow-[var(--shadow-card)] sm:mt-8 sm:p-7">
+                  <span className="absolute -left-2 top-8 hidden h-5 w-5 rotate-45 border-b border-r border-[var(--line-soft)] bg-[var(--blush)] sm:block" />
+                  <span className="mb-4 grid h-10 w-10 place-items-center rounded-full bg-white text-sm font-black text-[var(--pink-deep)] sm:mb-5 sm:h-11 sm:w-11">
                     {activity.author.replace("Member ", "")}
                   </span>
-                  <p className="text-lg italic leading-8 text-[var(--foreground)]/76">&quot;{activity.voice}&quot;</p>
+                  <p className="text-base italic leading-7 text-[var(--foreground)]/76 sm:text-lg sm:leading-8">&quot;{activity.voice}&quot;</p>
                 </div>
               </motion.div>
 
@@ -149,8 +149,8 @@ export default function ActivitiesClient() {
           </div>
           <ol className="grid gap-4">
             {flow.map((item, index) => (
-              <li key={item} className="surface-card p-5">
-                <p className="text-lg font-bold leading-8 text-[var(--ink)]">
+              <li key={item} className="surface-card p-4 sm:p-5">
+                <p className="text-base font-bold leading-7 text-[var(--ink)] sm:text-lg sm:leading-8">
                   {index + 1}. {item}
                 </p>
               </li>
@@ -170,25 +170,25 @@ export default function ActivitiesClient() {
           </div>
           <div className="grid gap-4">
             {faqs.map((faq) => (
-              <article key={faq.question} className="surface-card p-6">
-                <h2 className="text-xl font-black leading-8 text-[var(--ink)]">{faq.question}</h2>
-                <p className="mt-3 text-base leading-8 text-[var(--ink)]/72">{faq.answer}</p>
+              <article key={faq.question} className="surface-card p-5 sm:p-6">
+                <h2 className="text-lg font-black leading-7 text-[var(--ink)] sm:text-xl sm:leading-8">{faq.question}</h2>
+                <p className="mt-3 text-[0.96rem] leading-7 text-[var(--ink)]/72 sm:text-base sm:leading-8">{faq.answer}</p>
               </article>
             ))}
           </div>
         </div>
       </Section>
 
-      <section className="cta-pattern relative overflow-hidden rounded-t-[var(--r-lg)] px-6 py-24 text-white md:py-32">
+      <section className="cta-pattern relative overflow-hidden rounded-t-[var(--r-lg)] px-5 py-20 text-white sm:px-6 md:py-32">
         <div className="container-shell text-center">
           <h2 className="hero-title mx-auto mt-6 max-w-3xl">
             次の活動に、一緒に関わりませんか。
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-white/82">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-white/82 sm:mt-6 sm:text-lg sm:leading-8">
             ボランティア、イベント連携、絵本制作のご相談まで、お気軽にご連絡ください。
           </p>
-          <Link href="/contact" className="mt-10 inline-flex">
-            <Button size="lg" variant="secondary" className="px-10">
+          <Link href="/contact" className="mt-8 inline-flex w-full sm:mt-10 sm:w-auto">
+            <Button size="lg" variant="secondary" className="w-full justify-center px-10 sm:w-auto">
               お問い合わせ
             </Button>
           </Link>

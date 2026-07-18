@@ -76,7 +76,7 @@ export default function RootLayout({
         <HeartTrail />
         <SmoothScroll>
           <Navbar />
-          <main id="main-content" tabIndex={-1} className="min-h-screen pt-24">
+          <main id="main-content" tabIndex={-1} className="min-h-screen pt-20 sm:pt-24">
             {children}
           </main>
           <Footer />

@@ -14,7 +14,7 @@ export const Footer = () => {
     ];
 
     return (
-        <footer className="mt-0 bg-[var(--blush)] py-16 text-[var(--ink)]">
+        <footer className="mt-0 bg-[var(--blush)] px-5 py-12 text-[var(--ink)] sm:px-6 md:py-16">
             <div className="container-shell grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.9fr]">
                 <div>
                     <div className="mb-4">
@@ -69,7 +69,7 @@ export const Footer = () => {
                 </div>
             </div>
 
-            <div className="mt-12 border-t border-[var(--line-soft)] pt-8 text-center text-xs font-medium text-[var(--ink)]/50">
+            <div className="mt-10 border-t border-[var(--line-soft)] pt-7 text-center text-xs font-medium text-[var(--ink)]/50 md:mt-12 md:pt-8">
                 © 2025 Happy Hearts English. All rights reserved.
             </div>
         </footer>

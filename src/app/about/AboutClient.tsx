@@ -12,7 +12,13 @@ import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function AboutClient() {
   const reduceMotion = useReducedMotion();
-  const [, setEasterClicks] = useState({ yuuken: false, ai: false });
+  const [, setSecretProgress] = useState({
+    yuuken: 0,
+    ai: 0,
+    yuukenUnlocked: false,
+    aiUnlocked: false,
+    lastTapAt: 0,
+  });
   const [showLoveBurst, setShowLoveBurst] = useState(false);
 
   const leadership = [
@@ -65,12 +71,29 @@ export default function AboutClient() {
     { name: "団体について", path: "/about" },
   ]);
 
-  const triggerLoveBurst = (target: "yuuken" | "ai") => {
-    setEasterClicks((current) => {
-      const next = { ...current, [target]: true };
-      if (next.yuuken && next.ai) {
+  const registerSecretTap = (target: "yuuken" | "ai") => {
+    const now = Date.now();
+    const secretTapGoal = 5;
+    const secretWindowMs = 6500;
+
+    setSecretProgress((current) => {
+      const stillInWindow = now - current.lastTapAt < secretWindowMs;
+      const base = stillInWindow
+        ? current
+        : { yuuken: 0, ai: 0, yuukenUnlocked: false, aiUnlocked: false, lastTapAt: 0 };
+      const nextCount = base[target] + 1;
+      const next = {
+        ...base,
+        [target]: nextCount,
+        [`${target}Unlocked`]: nextCount >= secretTapGoal,
+        lastTapAt: now,
+      };
+
+      if (next.yuukenUnlocked && next.aiUnlocked) {
         setShowLoveBurst(true);
+        return { yuuken: 0, ai: 0, yuukenUnlocked: false, aiUnlocked: false, lastTapAt: 0 };
       }
+
       return next;
     });
   };
@@ -203,7 +226,7 @@ export default function AboutClient() {
           />
           <div>
             <CrayonTitle className="mb-6">「もっと楽しく」から始まった一歩。</CrayonTitle>
-            <div className="space-y-6 text-lg leading-8 text-[var(--foreground)]/72">
+            <div className="space-y-5 text-base leading-7 text-[var(--foreground)]/72 sm:space-y-6 sm:text-lg sm:leading-8">
               <p>
                 多くのメンバーが、英語が通じたときのうれしさや、世界が広がる感覚を自分の経験として知っています。
               </p>
@@ -230,9 +253,9 @@ export default function AboutClient() {
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
           {principles.map((principle) => (
-            <article key={principle.title} className="surface-card p-7">
+            <article key={principle.title} className="surface-card p-5 sm:p-7">
               <h3 className="title-h3 text-[var(--ink)]">{principle.title}</h3>
-              <p className="mt-5 text-base leading-8 text-[var(--ink)]/72">{principle.copy}</p>
+              <p className="mt-4 text-[0.96rem] leading-7 text-[var(--ink)]/72 sm:mt-5 sm:text-base sm:leading-8">{principle.copy}</p>
             </article>
           ))}
         </div>
@@ -243,7 +266,6 @@ export default function AboutClient() {
           <div>
             <CrayonTitle>創設メンバー / 共同代表</CrayonTitle>
           </div>
-          <p className="body-lg max-w-md">英語を届ける前に、まず自分たちが楽しんで学ぶことを大切にしています。</p>
         </div>
 
         <motion.div
@@ -251,33 +273,19 @@ export default function AboutClient() {
           whileInView="visible"
           viewport={{ once: true, margin: "-10%" }}
           variants={staggerContainer()}
-          className="grid gap-6 md:grid-cols-2 xl:grid-cols-4"
+          className="grid gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-4"
         >
           {leadership.map((leader, index) => (
             <motion.article
               key={leader.name}
               variants={fadeUp(index * 0.06)}
-              role={leader.name === "Yuuken Miura" ? "button" : undefined}
-              tabIndex={leader.name === "Yuuken Miura" ? 0 : undefined}
-              onClick={leader.name === "Yuuken Miura" ? () => triggerLoveBurst("yuuken") : undefined}
-              onKeyDown={
-                leader.name === "Yuuken Miura"
-                  ? (event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault();
-                        triggerLoveBurst("yuuken");
-                      }
-                    }
-                  : undefined
-              }
-              className={`surface-card overflow-hidden p-4 transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] ${
-                leader.name === "Yuuken Miura" ? "cursor-pointer focus-ring" : ""
-              }`}
+              onClick={leader.name === "Yuuken Miura" ? () => registerSecretTap("yuuken") : undefined}
+              className="surface-card overflow-hidden p-3 transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] sm:p-4"
             >
               <motion.div
                 whileHover={reduceMotion ? undefined : { rotate: 1.4, y: -4 }}
                 transition={{ duration: 0.4 }}
-                className="relative aspect-[3/4] overflow-hidden rounded-[calc(var(--radius-lg)-0.5rem)]"
+                className="relative aspect-[4/5] overflow-hidden rounded-[calc(var(--radius-lg)-0.45rem)] sm:aspect-[3/4]"
               >
                 <Image
                   src={leader.image}
@@ -287,9 +295,9 @@ export default function AboutClient() {
                   className="object-cover transition-transform duration-500 hover:scale-[1.03]"
                 />
               </motion.div>
-              <div className="px-2 pb-2 pt-5">
-                <h3 className="mt-2 text-2xl font-black text-[var(--foreground)]">{leader.name}</h3>
-                <p className="mt-2 text-sm font-medium text-[var(--ink)]/68">{leader.role}</p>
+              <div className="px-1 pb-2 pt-4 sm:px-2 sm:pt-5">
+                <h3 className="mt-1 text-xl font-black text-[var(--foreground)] sm:mt-2 sm:text-2xl">{leader.name}</h3>
+                <p className="mt-1 text-xs font-medium leading-5 text-[var(--ink)]/68 sm:mt-2 sm:text-sm">{leader.role}</p>
               </div>
             </motion.article>
           ))}
@@ -303,12 +311,12 @@ export default function AboutClient() {
             whileInView="visible"
             viewport={{ once: true, margin: "-15%" }}
             variants={fadeUp()}
-            className="surface-card relative p-8 md:p-12"
+            className="surface-card relative p-5 sm:p-8 md:p-12"
           >
-            <Quote className="absolute left-8 top-8 text-[var(--pink)]" size={64} />
-            <div className="pl-8 md:pl-12">
+            <Quote className="absolute left-5 top-5 text-[var(--pink)]/35 sm:left-8 sm:top-8 sm:text-[var(--pink)]" size={44} />
+            <div className="pt-10 sm:pl-8 sm:pt-0 md:pl-12">
               <CrayonTitle className="mb-6">一人ひとりの笑顔が、私たちの原動力です。</CrayonTitle>
-              <div className="space-y-6 text-lg leading-8 text-[var(--foreground)]/76">
+              <div className="space-y-5 text-base leading-7 text-[var(--foreground)]/76 sm:space-y-6 sm:text-lg sm:leading-8">
                 <p>
                   英語は単なる言語ではなく、新しい世界や友だち、自分の可能性に出会うためのチケットだと信じています。
                 </p>
@@ -321,7 +329,7 @@ export default function AboutClient() {
                 </p>
               </div>
               <div className="mt-10 border-t border-[var(--line-soft)] pt-8">
-                <p className="mt-2 text-2xl font-black text-[var(--foreground)]">共同代表一同</p>
+                <p className="mt-2 text-xl font-black text-[var(--foreground)] sm:text-2xl">共同代表一同</p>
               </div>
             </div>
           </motion.div>
@@ -340,19 +348,19 @@ export default function AboutClient() {
           whileInView="visible"
           viewport={{ once: true, margin: "-10%" }}
           variants={staggerContainer(0.06)}
-          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4"
         >
           {members.map((name, index) => (
             <motion.div
               key={name}
               variants={fadeUp((index % 4) * 0.04)}
-              onClick={name === "Ai Koike" ? () => triggerLoveBurst("ai") : undefined}
-              className="soft-panel px-5 py-5"
+              onClick={name === "Ai Koike" ? () => registerSecretTap("ai") : undefined}
+              className="soft-panel px-3.5 py-4 sm:px-5 sm:py-5"
             >
               <div>
-                <h3 className="text-xl font-black text-[var(--foreground)]">{name}</h3>
+                <h3 className="text-[0.96rem] font-black leading-snug text-[var(--foreground)] sm:text-xl">{name}</h3>
                 {memberRoles[name] && (
-                  <p className="mt-2 text-sm leading-6 text-[var(--ink)]/64">{memberRoles[name]}</p>
+                  <p className="mt-1.5 text-[0.72rem] leading-5 text-[var(--ink)]/64 sm:mt-2 sm:text-sm sm:leading-6">{memberRoles[name]}</p>
                 )}
               </div>
             </motion.div>

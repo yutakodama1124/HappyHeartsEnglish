@@ -48,12 +48,12 @@ export const Navbar = () => {
       }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-5 inset-x-0 z-50 flex justify-center px-4"
+      className="fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-5 sm:px-4"
     >
-      <div className="nav-island flex w-full max-w-5xl items-center justify-between gap-4 rounded-full px-4 py-3 md:px-5">
-        <Link href="/" className="flex min-h-11 items-center gap-3 min-w-0">
+      <div className="nav-island flex w-full max-w-5xl items-center justify-between gap-2 rounded-full px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-3 md:px-5">
+        <Link href="/" className="flex min-h-11 min-w-0 items-center gap-3">
           <span className="min-w-0">
-            <span className="block truncate text-sm font-black tracking-tight text-[var(--ink)]">
+            <span className="block max-w-[13.5rem] truncate text-[13px] font-black tracking-tight text-[var(--ink)] sm:max-w-none sm:text-sm">
               Happy Hearts English
             </span>
             <span className="hidden text-[10px] font-bold uppercase tracking-[0.24em] text-[var(--pink-deep)] md:block">
@@ -116,15 +116,15 @@ export const Navbar = () => {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 10 }}
               transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed inset-3 top-20 rounded-[var(--r-lg)] border border-[var(--line-soft)] bg-[var(--paper)] p-8 shadow-[var(--shadow-lift)] md:hidden"
+              className="fixed inset-x-3 bottom-3 top-[4.25rem] rounded-[var(--r-lg)] border border-[var(--line-soft)] bg-[var(--paper)] p-5 shadow-[var(--shadow-lift)] sm:top-20 sm:p-8 md:hidden"
             >
-              <div className="flex h-full flex-col justify-center gap-3 text-center">
+              <div className="flex h-full flex-col justify-center gap-2 text-center sm:gap-3">
                 {pageNavItems.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsOpen(false)}
-                    className="title-h3 rounded-[var(--r-md)] px-4 py-4 text-[var(--ink)] hover:bg-[var(--blush)] hover:text-[var(--pink-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)]"
+                    className="rounded-[var(--r-md)] px-4 py-4 text-xl font-black text-[var(--ink)] hover:bg-[var(--blush)] hover:text-[var(--pink-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)] sm:text-2xl"
                   >
                     {item.name}
                   </Link>

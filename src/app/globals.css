@@ -97,6 +97,22 @@ img {
   }
 }
 
+@media (max-width: 640px) {
+  :root {
+    --r-md: 18px;
+    --r-lg: 24px;
+    --t-display: clamp(2.1rem, 12vw, 3.15rem);
+    --t-h2: clamp(1.55rem, 8.5vw, 2.25rem);
+    --t-h3: clamp(1.12rem, 5.6vw, 1.42rem);
+    --t-body: 1rem;
+  }
+
+  .section-shell {
+    padding-block: 4.75rem;
+    padding-inline: 1.1rem;
+  }
+}
+
 .container-shell {
   width: min(100%, 76rem);
   margin-inline: auto;
@@ -170,6 +186,23 @@ img {
   color: var(--foreground-soft);
 }
 
+@media (max-width: 640px) {
+  .display-title,
+  .hero-title,
+  .section-title {
+    letter-spacing: -0.025em;
+  }
+
+  .body-lg,
+  .body-xl {
+    line-height: 1.78;
+  }
+
+  .body-xl {
+    font-size: 1.08rem;
+  }
+}
+
 .surface-card {
   background: var(--surface);
   border: 1px solid var(--line-soft);
@@ -210,6 +243,17 @@ img {
   transform: rotate(1.4deg);
 }
 
+@media (max-width: 640px) {
+  .snapshot {
+    border-width: 5px;
+  }
+
+  .snapshot--left,
+  .snapshot--right {
+    transform: none;
+  }
+}
+
 .link-stroke {
   position: relative;
   min-height: 44px;
@@ -244,6 +288,12 @@ img {
 
 .mask-fade-x {
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+@media (max-width: 640px) {
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 4%, black 96%, transparent);
+  }
 }
 
 @keyframes marquee {

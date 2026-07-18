@@ -133,7 +133,7 @@ export default function ContactClient() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
 
       <Section>
-        <div className="mx-auto mb-14 max-w-4xl text-center">
+        <div className="mx-auto mb-10 max-w-4xl text-center md:mb-14">
           <CrayonTitle as="h1" className="display-title--hero mb-6">
             お問い合わせ
           </CrayonTitle>
@@ -141,14 +141,14 @@ export default function ContactClient() {
             ボランティア参加、活動提携、イベント相談など、
             どうぞお気軽にご連絡ください。
           </p>
-          <p className="body-lg mt-6">
+          <p className="body-lg mt-4 md:mt-6">
             児童館での英語イベント、英語絵本の読み聞かせ、地域イベントとの連携、学生メンバーとしての参加など、
             Happy Hearts Englishに関する相談を受け付けています。
           </p>
         </div>
 
-        <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-          <div className="surface-card relative overflow-hidden rounded-[var(--r-lg)] p-6 md:p-8">
+        <div className="mx-auto grid max-w-5xl gap-5 md:gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="surface-card relative overflow-hidden rounded-[var(--r-lg)] p-5 md:p-8">
             {status === "success" ? (
               <div role="status" aria-live="polite" className="grid min-h-[32rem] place-items-center text-center">
                 <div>
@@ -204,7 +204,7 @@ export default function ContactClient() {
                     spellCheck={field.id !== "email"}
                     aria-invalid={Boolean(errors[field.id as keyof FormState])}
                     aria-describedby={errors[field.id as keyof FormState] ? `${field.id}-error` : undefined}
-                    className={`w-full rounded-[var(--r-md)] border bg-[var(--paper)] px-5 py-4 font-medium outline-none transition-[background-color,border-color,box-shadow] duration-200 focus-visible:border-[var(--pink-deep)] focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)]/25 ${
+                    className={`w-full rounded-[var(--r-md)] border bg-[var(--paper)] px-4 py-3.5 font-medium outline-none transition-[background-color,border-color,box-shadow] duration-200 focus-visible:border-[var(--pink-deep)] focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)]/25 sm:px-5 sm:py-4 ${
                       errors[field.id as keyof FormState]
                         ? "border-red-300"
                         : "border-[var(--line-soft)]"
@@ -233,7 +233,7 @@ export default function ContactClient() {
                   autoComplete="off"
                   aria-invalid={Boolean(errors.message)}
                   aria-describedby={errors.message ? "message-error" : undefined}
-                  className={`w-full resize-none rounded-[var(--r-md)] border bg-[var(--paper)] px-5 py-4 font-medium outline-none transition-[background-color,border-color,box-shadow] duration-200 focus-visible:border-[var(--pink-deep)] focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)]/25 ${
+                  className={`w-full resize-none rounded-[var(--r-md)] border bg-[var(--paper)] px-4 py-3.5 font-medium outline-none transition-[background-color,border-color,box-shadow] duration-200 focus-visible:border-[var(--pink-deep)] focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)]/25 sm:px-5 sm:py-4 ${
                     errors.message ? "border-red-300" : "border-[var(--line-soft)]"
                   }`}
                   placeholder="イベント相談の場合は、対象年齢・人数・希望時期・会場の場所も分かる範囲でご記入ください。"
@@ -262,26 +262,26 @@ export default function ContactClient() {
           </div>
 
           <div className="grid gap-5">
-            <div className="surface-card p-7">
+            <div className="surface-card p-5 sm:p-7">
               <a
                 href={`mailto:${siteConfig.email}`}
-                className="flex items-center gap-4 rounded-[var(--r-md)] transition-colors hover:text-[var(--pink-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                className="flex items-center gap-3 rounded-[var(--r-md)] transition-colors hover:text-[var(--pink-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:gap-4"
               >
                 <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--blush)] text-[var(--pink-deep)]">
                   <Mail size={20} />
                 </span>
-                <div>
-                  <p className="mt-1 font-bold text-[var(--foreground)]">{siteConfig.email}</p>
+                <div className="min-w-0">
+                  <p className="mt-1 break-all font-bold text-[var(--foreground)]">{siteConfig.email}</p>
                 </div>
               </a>
             </div>
 
-            <div className="surface-card p-7">
+            <div className="surface-card p-5 sm:p-7">
               <a
                 href={siteConfig.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 rounded-[var(--r-md)] transition-colors hover:text-[var(--pink-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                className="flex items-center gap-3 rounded-[var(--r-md)] transition-colors hover:text-[var(--pink-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--pink-deep)] focus-visible:ring-offset-2 focus-visible:ring-offset-white sm:gap-4"
                 aria-label="Happy Hearts EnglishのInstagramを開く"
               >
                 <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--blush)] text-[var(--pink-deep)]">
@@ -293,8 +293,8 @@ export default function ContactClient() {
               </a>
             </div>
 
-            <div className="surface-card p-7">
-              <div className="flex items-center gap-4">
+            <div className="surface-card p-5 sm:p-7">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <span className="grid h-12 w-12 place-items-center rounded-full bg-[var(--sun)]/25 text-[var(--ink)]">
                   <MapPin size={20} />
                 </span>
@@ -304,8 +304,8 @@ export default function ContactClient() {
               </div>
             </div>
 
-            <div className="soft-panel p-7">
-              <p className="mt-3 text-lg leading-8 text-[var(--foreground)]/72">
+            <div className="soft-panel p-5 sm:p-7">
+              <p className="mt-2 text-base leading-7 text-[var(--foreground)]/72 sm:mt-3 sm:text-lg sm:leading-8">
                 児童館、教育団体、地域イベントなどとの連携相談も歓迎しています。
                 内容がまだ決まっていない段階でも、子どもたちに届けたい体験や会場の雰囲気から一緒に考えられます。
               </p>
@@ -324,9 +324,9 @@ export default function ContactClient() {
         </div>
         <div className="grid gap-5 lg:grid-cols-3">
           {contactTopics.map((topic) => (
-            <article key={topic.title} className="surface-card p-7">
+            <article key={topic.title} className="surface-card p-5 sm:p-7">
               <h2 className="title-h3 text-[var(--ink)]">{topic.title}</h2>
-              <p className="mt-5 text-base leading-8 text-[var(--ink)]/72">{topic.copy}</p>
+              <p className="mt-4 text-[0.96rem] leading-7 text-[var(--ink)]/72 sm:mt-5 sm:text-base sm:leading-8">{topic.copy}</p>
             </article>
           ))}
         </div>
@@ -343,9 +343,9 @@ export default function ContactClient() {
           </div>
           <div className="grid gap-4">
             {faqs.map((faq) => (
-              <article key={faq.question} className="surface-card p-6">
-                <h2 className="text-xl font-black leading-8 text-[var(--ink)]">{faq.question}</h2>
-                <p className="mt-3 text-base leading-8 text-[var(--ink)]/72">{faq.answer}</p>
+              <article key={faq.question} className="surface-card p-5 sm:p-6">
+                <h2 className="text-lg font-black leading-7 text-[var(--ink)] sm:text-xl sm:leading-8">{faq.question}</h2>
+                <p className="mt-3 text-[0.96rem] leading-7 text-[var(--ink)]/72 sm:text-base sm:leading-8">{faq.answer}</p>
               </article>
             ))}
           </div>
