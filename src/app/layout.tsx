@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { SmoothScroll } from "@/components/ui/SmoothScroll";
-import { HeartTrail } from "@/components/ui/HeartTrail";
-import { googleSiteVerification, happyHeartsJsonLd, siteConfig } from "@/lib/site";
+import { googleSiteVerification, siteConfig } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -62,31 +58,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout() {
   return (
     <html lang="ja">
-      <body>
-        <a className="skip-link" href="#main-content">
-          本文へスキップ
-        </a>
-        <HeartTrail />
-        <SmoothScroll>
-          <Navbar />
-          <main id="main-content" tabIndex={-1} className="min-h-screen pt-20 sm:pt-24">
-            {children}
-          </main>
-          <Footer />
-        </SmoothScroll>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(happyHeartsJsonLd),
-          }}
-        />
+      <body className="m-0 bg-black">
+        <main aria-label="Black screen" className="fixed inset-0 bg-black" />
         <Analytics />
         <SpeedInsights />
       </body>
