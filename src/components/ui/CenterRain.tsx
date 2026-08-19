@@ -103,11 +103,10 @@ export function CenterRain() {
           {showFinalNote && (
             <div className="center-rain__final-note">
               <p>
-                I’m joking at this point, I can’t lie. The website will be back, don’t worry. But let’s try to be a
-                little more professional. I don’t mind jokes or people messing around, but when I’ve genuinely put
-                time, effort, and money into something for everyone, it comes across as rude. Growing up means
-                recognizing that it isn’t okay to do something just because of who the person is. It also means
-                owning your actions instead of blaming other people.
+                I’m joking at this point, I can’t lie. But let’s try to be a little more professional. I don’t mind
+                jokes or people messing around, but when I’ve genuinely put time, effort, and money into something for
+                everyone, it comes across as rude. Growing up means recognizing that it isn’t okay to do something just
+                because of who the person is. It also means owning your actions instead of blaming other people.
               </p>
             </div>
           )}
