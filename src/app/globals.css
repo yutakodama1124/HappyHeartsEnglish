@@ -551,6 +551,31 @@ img {
   margin-top: 1.2rem;
 }
 
+.center-rain__message-copy {
+  min-height: 92vh;
+  padding-bottom: 2rem;
+}
+
+.center-rain__final-note {
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+  padding-top: 1.5rem;
+  color: rgba(255, 255, 255, 0.88);
+  animation: center-rain-note-in 0.7s var(--ease-out) both;
+}
+
+@keyframes center-rain-note-in {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes center-rain-fall {
   0% {
     opacity: 0;

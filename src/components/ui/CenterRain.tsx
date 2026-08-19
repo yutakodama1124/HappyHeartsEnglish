@@ -15,6 +15,7 @@ const drops = Array.from({ length: 26 }, (_, index) => ({
 export function CenterRain() {
   const [burstKey, setBurstKey] = useState(0);
   const [showMessage, setShowMessage] = useState(false);
+  const [showFinalNote, setShowFinalNote] = useState(false);
 
   useEffect(() => {
     if (burstKey === 0) return;
@@ -26,6 +27,15 @@ export function CenterRain() {
   const startRain = () => {
     setShowMessage(true);
     setBurstKey((current) => current + 1);
+  };
+
+  const revealFinalNote = (event: React.UIEvent<HTMLDivElement>) => {
+    const target = event.currentTarget;
+    const reachedEnd = target.scrollTop + target.clientHeight >= target.scrollHeight - 20;
+
+    if (reachedEnd) {
+      setShowFinalNote(true);
+    }
   };
 
   return (
@@ -69,24 +79,38 @@ export function CenterRain() {
       </button>
 
       {showMessage && (
-        <div className="center-rain__message relative z-10">
-          <p>
-            In life, understanding the consequences of your actions and knowing where to draw the line is
-            essential—especially during times of transition.
-          </p>
-          <p>
-            Mocking or disregarding a member is unacceptable. This website takes real time and money to maintain,
-            yet leaders responses remain late and overall group engagement continues to decline. Some joke around
-            while others stay silent, but refusing to help or take responsibility is part of the problem.
-          </p>
-          <p>
-            At this stage, not everything can be treated as a joke. Growth requires accountability—in school,
-            friendships, family, and life.
-          </p>
-          <p>
-            The fact that no one can offer even a simple apology says everything. The silence and refusal to take
-            responsibility only prove the point and show exactly where this group stands.
-          </p>
+        <div className="center-rain__message relative z-10" onScroll={revealFinalNote}>
+          <div className="center-rain__message-copy">
+            <p>
+              In life, understanding the consequences of your actions and knowing where to draw the line is
+              essential—especially during times of transition.
+            </p>
+            <p>
+              Mocking or disregarding a member is unacceptable. This website takes real time and money to maintain,
+              yet leaders responses remain late and overall group engagement continues to decline. Some joke around
+              while others stay silent, but refusing to help or take responsibility is part of the problem.
+            </p>
+            <p>
+              At this stage, not everything can be treated as a joke. Growth requires accountability—in school,
+              friendships, family, and life.
+            </p>
+            <p>
+              The fact that no one can offer even a simple apology says everything. The silence and refusal to take
+              responsibility only prove the point and show exactly where this group stands.
+            </p>
+          </div>
+
+          {showFinalNote && (
+            <div className="center-rain__final-note">
+              <p>
+                I’m joking at this point, I can’t lie. The website will be back, don’t worry. But let’s try to be a
+                little more professional. I don’t mind jokes or people messing around, but when I’ve genuinely put
+                time, effort, and money into something for everyone, it comes across as rude. Growing up means
+                recognizing that it isn’t okay to do something just because of who the person is. It also means
+                owning your actions instead of blaming other people.
+              </p>
+            </div>
+          )}
         </div>
       )}
     </main>
