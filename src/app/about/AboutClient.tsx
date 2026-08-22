@@ -1,25 +1,16 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { CloudImage } from "@/components/ui/CloudImage";
 import { Section } from "@/components/ui/Section";
 import { CrayonTitle } from "@/components/ui/CrayonTitle";
 import Image from "next/image";
-import { useState } from "react";
 import { buildBreadcrumbJsonLd } from "@/lib/site";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export default function AboutClient() {
   const reduceMotion = useReducedMotion();
-  const [, setSecretProgress] = useState({
-    yuuken: 0,
-    ai: 0,
-    yuukenUnlocked: false,
-    aiUnlocked: false,
-    lastTapAt: 0,
-  });
-  const [showLoveBurst, setShowLoveBurst] = useState(false);
 
   const leadership = [
     { name: "Yuuken Miura", role: "Co-Founder / 共同代表", image: "/images/Yuuken.jpg" },
@@ -71,133 +62,9 @@ export default function AboutClient() {
     { name: "団体について", path: "/about" },
   ]);
 
-  const registerSecretTap = (target: "yuuken" | "ai") => {
-    const now = Date.now();
-    const secretTapGoal = 5;
-    const secretWindowMs = 6500;
-
-    setSecretProgress((current) => {
-      const stillInWindow = now - current.lastTapAt < secretWindowMs;
-      const base = stillInWindow
-        ? current
-        : { yuuken: 0, ai: 0, yuukenUnlocked: false, aiUnlocked: false, lastTapAt: 0 };
-      const nextCount = base[target] + 1;
-      const next = {
-        ...base,
-        [target]: nextCount,
-        [`${target}Unlocked`]: nextCount >= secretTapGoal,
-        lastTapAt: now,
-      };
-
-      if (next.yuukenUnlocked && next.aiUnlocked) {
-        setShowLoveBurst(true);
-        return { yuuken: 0, ai: 0, yuukenUnlocked: false, aiUnlocked: false, lastTapAt: 0 };
-      }
-
-      return next;
-    });
-  };
-
-  const loveRain = Array.from({ length: 22 }, (_, index) => ({
-    id: index,
-    left: (index * 17) % 96,
-    delay: (index % 8) * 0.12,
-    duration: 2.8 + (index % 5) * 0.22,
-    rotate: index % 2 === 0 ? -16 : 18,
-    label: index % 3 === 0 ? "LOVE" : index % 3 === 1 ? "Ai" : "Yuuken",
-  }));
-
   return (
     <div className="bg-[var(--background)]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <AnimatePresence>
-        {showLoveBurst && (
-          <motion.div
-            className="love-burst"
-            role="dialog"
-            aria-label="Secret love animation"
-            aria-modal="true"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.28 }}
-            onClick={() => setShowLoveBurst(false)}
-          >
-            <div className="love-burst__rain" aria-hidden="true">
-              {loveRain.map((item) => (
-                <motion.div
-                  key={item.id}
-                  className="love-burst__drop"
-                  style={{ left: `${item.left}%` }}
-                  initial={{ y: "-22vh", opacity: 0, rotate: item.rotate }}
-                  animate={{ y: "116vh", opacity: [0, 1, 1, 0], rotate: item.rotate * -1 }}
-                  transition={{
-                    duration: reduceMotion ? 0.01 : item.duration,
-                    delay: reduceMotion ? 0 : item.delay,
-                    repeat: reduceMotion ? 0 : Infinity,
-                    ease: "linear",
-                  }}
-                >
-                  {item.id % 4 === 0 ? (
-                    <Image
-                      src="/images/easter-love.png"
-                      alt=""
-                      width={104}
-                      height={156}
-                      className="love-burst__mini-photo"
-                    />
-                  ) : (
-                    <span>{item.label}</span>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              className="love-burst__stage"
-              initial={reduceMotion ? false : { y: 26, scale: 0.96, opacity: 0 }}
-              animate={{ y: 0, scale: 1, opacity: 1 }}
-              exit={{ y: 12, scale: 0.98, opacity: 0 }}
-              transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <div className="love-burst__photo love-burst__photo--left">
-                <Image
-                  src="/images/easter-yuuken.png"
-                  alt="Yuuken secret photo"
-                  fill
-                  sizes="(max-width: 768px) 38vw, 22rem"
-                  className="object-cover"
-                />
-              </div>
-              <motion.div
-                className="love-burst__heart-wrap"
-                aria-hidden="true"
-                animate={reduceMotion ? undefined : { scale: [1, 1.14, 1], rotate: [-5, 5, -5] }}
-                transition={{ duration: 1.1, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <div className="love-burst__heart" />
-              </motion.div>
-              <div className="love-burst__photo love-burst__photo--right">
-                <Image
-                  src="/images/easter-ai.png"
-                  alt="Ai secret photo"
-                  fill
-                  sizes="(max-width: 768px) 38vw, 22rem"
-                  className="object-cover"
-                />
-              </div>
-              <button
-                type="button"
-                className="love-burst__close"
-                onClick={() => setShowLoveBurst(false)}
-              >
-                close
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <Section>
         <div className="max-w-4xl">
@@ -279,7 +146,6 @@ export default function AboutClient() {
             <motion.article
               key={leader.name}
               variants={fadeUp(index * 0.06)}
-              onClick={leader.name === "Yuuken Miura" ? () => registerSecretTap("yuuken") : undefined}
               className="surface-card overflow-hidden p-3 transition-[box-shadow,transform] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] sm:p-4"
             >
               <motion.div
@@ -354,7 +220,6 @@ export default function AboutClient() {
             <motion.div
               key={name}
               variants={fadeUp((index % 4) * 0.04)}
-              onClick={name === "Ai Koike" ? () => registerSecretTap("ai") : undefined}
               className="soft-panel px-3.5 py-4 sm:px-5 sm:py-5"
             >
               <div>
